@@ -10,6 +10,7 @@ class HomePage extends Component {
     super(props, context)
 
     this.updatePlayer = this.updatePlayer.bind(this)
+    this.setBackgroundColor = this.setBackgroundColor.bind(this)
 
     this.state = {
       game: new Game({
@@ -25,11 +26,43 @@ class HomePage extends Component {
     this.setState({ game: this.state.game.updatePlayer(updateData) })
   }
 
+  setBackgroundColor () {
+      const bottomBackgroundColors = {
+      white : ['#FC9700', '#FFE292'/*, '#FFF4E4'*/].reverse(),
+      blue  : ['#004394', '#009AD0'/*, '#E0F2FF'*/].reverse(),
+      black : ['#4C0064', '#B3307E'/*, '#F5E5FF'*/].reverse(),
+      red   : ['#94001A', '#E7093C'/*, '#FFE6EC'*/].reverse(),
+      green : ['#01662C', '#82B300'/*, '#E7FFE5'*/].reverse(),
+  		clear : 'hsl(  0,  0%, 100%)'
+    }
+
+    const topBackgroundColors = {
+      white : ['#FC9700', '#FFE292'/*, '#FFF4E4'*/],
+      blue  : ['#004394', '#009AD0'/*, '#E0F2FF'*/],
+      black : ['#4C0064', '#B3307E'/*, '#F5E5FF'*/],
+      red   : ['#94001A', '#E7093C'/*, '#FFE6EC'*/],
+      green : ['#01662C', '#82B300'/*, '#E7FFE5'*/],
+      clear : 'hsl(  0,  0%, 100%)'
+  	}
+
+    const { game } = this.state
+    const bottomPlayerColor     = _.get(game, 'players[1].color', 'clear')
+  	const topPlayerColor        = _.get(game, 'players[0].color', 'clear')
+    const bottomBackgroundColor = bottomBackgroundColors[bottomPlayerColor]
+    const topBackgroundColor    = topBackgroundColors[topPlayerColor]
+
+  	return {
+      backgroundImage    : 'url(img/tekstury/png1.png), linear-gradient(to bottom, rgba(255,255,255,0.25), rgba(255,255,255,0.25)), linear-gradient(to bottom, ' + topBackgroundColor + ', ' + bottomBackgroundColor + ')',
+  		backgroundPosition : 'center, left top',
+  		backgroundSize     : 'cover, auto'
+  	}
+  }
+
   render() {
     const { game } = this.state
 
     return (
-      <div id="main_window">
+      <div id="main_window" style={this.setBackgroundColor()}>
 
         { /*
           <div id="warning" className="layer">

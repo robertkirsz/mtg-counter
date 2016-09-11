@@ -285,19 +285,20 @@ h1 { margin: 0; padding: 0; }
   margin: auto;
   border-radius: 50%;
   transform: scale(0.8);
+  transition: opacity 0.3s;
+  &.hidden {
+    opacity: 0;
+    img { transform: scale(0.2); }
+  }
   img {
     position: absolute;
     width: 70px; height: 70px;
-    transition: all 0.3s;
+    transition: transform 0.3s;
     &.white { top: -35px; left: 50%; margin-left: -35px; }
     &.blue { top: 20%; right: -35px; }
     &.black { bottom: -15px; right: 10px; }
     &.red { bottom: -15px; left: 10px; }
     &.green { top: 20%; left: -35px; }
-    &.hidden {
-      opacity: 0;
-      transform: scale(0.2);
-    }
   }
 }
 
@@ -313,7 +314,8 @@ h1 { margin: 0; padding: 0; }
 	transition: background-color 0.3s ease;
 	overflow: hidden;
 	z-index: 2;
-	&.opened {
+  transform: translateY(50%);
+	&--opened {
 		background-color: rgba(black, 0.1);
 		.icons {
 			opacity: 1;

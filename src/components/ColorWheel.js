@@ -5,15 +5,15 @@ const manaColors = ['white', 'blue', 'black', 'red', 'green'];
 
 const ColorWheel = ({ playerColor, onChooseColor }) => {
   return (
-    <div className="color-wheel">
+    <div className={cn(
+      'color-wheel',
+      { hidden: playerColor }
+    )}>
       {
         manaColors.map(manaColor => (
           <img
             key={manaColor}
-            className={cn(
-              manaColor,
-              { hidden: playerColor && playerColor !== manaColor }
-            )}
+            className={manaColor}
             src={`img/ikony/${manaColor}_mana.png`}
             alt="Mana symbol"
             onClick={() => { onChooseColor(manaColor); }}
