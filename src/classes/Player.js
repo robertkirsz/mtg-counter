@@ -6,6 +6,7 @@ export default class Player {
   update (raw) {
     if (raw.number) this.number = raw.number;
     if (raw.name)   this.name   = raw.name;
+    if (raw.color)  this.color  = raw.color;
     if (raw.life)   this.life   = raw.life;
 
     // localStorage.setItem('unitPreference', this.unitPreference);

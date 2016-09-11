@@ -206,22 +206,6 @@ h1 { margin: 0; padding: 0; }
 		align-items: center;
 		color: rgba(black, 0.5);
 		position: relative;
-		.color-wheel {
-			margin: auto;
-			border-radius: 50%;
-			width: 240px; height: 240px;
-			position: relative;
-			transform: scale(0.8);
-			img {
-				position: absolute;
-				width: 70px; height: 70px;
-				&.white {
-					top: -35px; left: 50%;
-					margin-left: -35px; }
-				&.blue { top: 20%; right: -35px; }
-				&.black { bottom: -15px; right: 10px; }
-				&.red { bottom: -15px; left: 10px; }
-				&.green { top: 20%; left: -35px; } } }
 		.life {
 			width: 100%;
 			display: none; // display: flex;
@@ -293,6 +277,28 @@ h1 { margin: 0; padding: 0; }
     				margin: 0px -10px -22px -10px; } } }
 		.player_1 { order: 1; }
 		.player_2 { order: 2; transform: none; } }
+}
+
+.color-wheel {
+  position: relative;
+  width: 240px; height: 240px;
+  margin: auto;
+  border-radius: 50%;
+  transform: scale(0.8);
+  img {
+    position: absolute;
+    width: 70px; height: 70px;
+    transition: all 0.3s;
+    &.white { top: -35px; left: 50%; margin-left: -35px; }
+    &.blue { top: 20%; right: -35px; }
+    &.black { bottom: -15px; right: 10px; }
+    &.red { bottom: -15px; left: 10px; }
+    &.green { top: 20%; left: -35px; }
+    &.hidden {
+      opacity: 0;
+      transform: scale(0.2);
+    }
+  }
 }
 
 .settings {

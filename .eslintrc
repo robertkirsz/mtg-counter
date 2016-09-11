@@ -27,7 +27,7 @@
     "no-console": 1,
     "no-debugger": 1,
     "no-var": 1,
-    "semi": [1, "always"],
+    "semi": 0,
     "no-trailing-spaces": 0,
     "eol-last": 0,
     "no-underscore-dangle": 0,
@@ -64,7 +64,7 @@
     "react/require-extension": 1,
     "react/self-closing-comp": 1,
     "react/sort-comp": 1,
-    "react/wrap-multilines": 1
+    "react/jsx-wrap-multilines": 1
   },
   "globals": {
   }

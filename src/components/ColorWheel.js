@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { PropTypes } from 'react'
+import cn from 'classnames'
 
-const ColorWheel = () => {
+const manaColors = ['white', 'blue', 'black', 'red', 'green'];
+
+const ColorWheel = ({ playerColor, onChooseColor }) => {
   return (
-    <div className='color-wheel'>
-      <img className='white' data-mana='mana_white' src='img/ikony/white_mana.png' alt='Mana symbol' />
-      <img className='blue' data-mana='mana_blue' src='img/ikony/blue_mana.png' alt='Mana symbol' />
-      <img className='black' data-mana='mana_black' src='img/ikony/black_mana.png' alt='Mana symbol' />
-      <img className='red' data-mana='mana_red' src='img/ikony/red_mana.png' alt='Mana symbol' />
-      <img className='green' data-mana='mana_green' src='img/ikony/green_mana.png' alt='Mana symbol' />
+    <div className="color-wheel">
+      {
+        manaColors.map(manaColor => (
+          <img
+            key={manaColor}
+            className={cn(
+              manaColor,
+              { hidden: playerColor && playerColor !== manaColor }
+            )}
+            src={`img/ikony/${manaColor}_mana.png`}
+            alt="Mana symbol"
+            onClick={() => { onChooseColor(manaColor); }}
+          />
+        ))
+      }
     </div>
-  );
-};
+  )
+}
 
-export default ColorWheel;
+ColorWheel.propTypes = {
+  playerColor: PropTypes.string,
+  onChooseColor: PropTypes.func
+}
+
+export default ColorWheel

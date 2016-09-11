@@ -1,9 +1,11 @@
 import SettingsPanel from './SettingsPanel';
 import ColorWheel from './ColorWheel';
-import Life from './Life';
+import Counter from './Counter';
+import PlayerComponent from './Player';
 
 export {
   SettingsPanel,
   ColorWheel,
-  Life
+  Counter,
+  PlayerComponent
 };

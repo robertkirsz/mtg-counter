@@ -11,6 +11,14 @@ export default class Game {
     // localStorage.setItem('unitPreference', this.unitPreference);
   }
 
+  // Updates
+  updatePlayer ({ playerNumber, dataToUpdate }) {
+    const gameCopy = this.copy()
+    const playerIndex = _.findIndex(gameCopy.players, { number: playerNumber })
+    gameCopy.players[playerIndex].update(dataToUpdate)
+    return gameCopy
+  }
+
   copy () {
     return new Game(this);
   }

@@ -1,83 +1,90 @@
-import React from 'react';
-import _ from 'lodash';
+import React, { Component } from 'react'
+import _ from 'lodash'
 
-import { Game, Player } from '../classes';
+import { Game, Player } from '../classes'
 
-import { ColorWheel, Life, SettingsPanel } from './';
+import { SettingsPanel, PlayerComponent } from './'
 
-const game = new Game({
-  players: [
-    new Player({ number: 2 }),
-    new Player({ number : 1 })
-  ]
-});
+class HomePage extends Component {
+  constructor(props, context) {
+    super(props, context)
 
-const HomePage = () => {
-  return (
-    <div id='main_window'>
-      { /*
-      <div id='warning' className='layer'>
-        <div className='box'>
-          <p>Are you sure you want to reset the game?</p>
-          <i className='fa fa-check fa-2x'></i>
-          <i className='fa fa-times fa-2x'></i>
-        </div>
-      </div>
+    this.updatePlayer = this.updatePlayer.bind(this)
 
-      <div id='game_over_screen' className='layer'>
-        <div className='box'>
-          <p className='message'>Message template</p>
-          <button>Continue playing</button>
-          <button>See results</button>
-          <button>Start new game</button>
-        </div>
-      </div>
+    this.state = {
+      game: new Game({
+        players: [
+          new Player({ number: 2 }),
+          new Player({ number: 1 })
+        ]
+      })
+    }
+  }
 
-      <div id='dice' className='layer'>
-        <div className='die player_2'>6</div>
-        <div className='die player_1'>3</div>
-      </div>
+  updatePlayer (updateData) {
+    this.setState({ game: this.state.game.updatePlayer(updateData) })
+  }
 
-      <div id='token_list' className='layer'>
-        <div className='list'>
-          <h1>Choose Token<i className='fa fa-times'></i></h1>
-          <ul></ul>
-        </div>
-        <div className='artworks'>
-          <h1><i className='fa fa-arrow-left'></i>Choose Artwork<i className='fa fa-times'></i></h1>
-          <div className='cards'></div>
-        </div>
-      </div>
+  render() {
+    const { game } = this.state
 
-      <div id='cards' className='clearfix'></div>
-      */ }
-      <SettingsPanel />
+    return (
+      <div id="main_window">
 
-      <div id='counters'>
-        {
-          _.map(game.players, player => (
-            <div key={player.number} className={`player player_${player.number}`}>
-              <ColorWheel />
-              <Life />
-              <div className='other'>
-                <div className='poison'>
-                  <i className='minus fa fa-minus'></i>
-                  <div className='count'></div>
-                  <i className='plus fa fa-plus'></i>
-                </div>
-                <div className='commander'>
-                  <i className='minus fa fa-minus'></i>
-                  <div className='count'></div>
-                  <i className='plus fa fa-plus'></i>
-                </div>
-              </div>
+        { /*
+          <div id="warning" className="layer">
+            <div className="box">
+              <p>Are you sure you want to reset the game?</p>
+              <i className="fa fa-check fa-2x" />
+              <i className="fa fa-times fa-2x" />
             </div>
-          ))
-        }
+          </div>
+
+          <div id="game_over_screen" className="layer">
+            <div className="box">
+              <p className="message">Message template</p>
+              <button>Continue playing</button>
+              <button>See results</button>
+              <button>Start new game</button>
+            </div>
+          </div>
+
+          <div id="dice" className="layer">
+            <div className="die player_2">6</div>
+            <div className="die player_1">3</div>
+          </div>
+
+          <div id="token_list" className="layer">
+            <div className="list">
+              <h1>Choose Token<i className="fa fa-times" /></h1>
+              <ul></ul>
+            </div>
+            <div className="artworks">
+              <h1><i className="fa fa-arrow-left" />Choose Artwork<i className="fa fa-times" /></h1>
+              <div className="cards" />
+            </div>
+          </div>
+
+          <div id="cards" className="clearfix" />
+        */ }
+
+        <SettingsPanel />
+
+        <div id="counters">
+          {
+            game.players.map(player => (
+              <PlayerComponent
+                key={player.number}
+                player={player}
+                updatePlayer={this.updatePlayer}
+              />
+            ))
+          }
+        </div>
+
       </div>
+    )
+  }
+}
 
-    </div>
-  );
-};
-
-export default HomePage;
+export default HomePage
