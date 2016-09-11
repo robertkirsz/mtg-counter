@@ -208,7 +208,7 @@ h1 { margin: 0; padding: 0; }
 		position: relative;
 		.life {
 			width: 100%;
-			display: none; // display: flex;
+			display: flex;
 			flex: 2;
 			flex-flow: row nowrap;
 			justify-content: space-around;
@@ -283,6 +283,7 @@ h1 { margin: 0; padding: 0; }
   position: relative;
   width: 240px; height: 240px;
   margin: auto;
+  background: red;
   border-radius: 50%;
   transform: scale(0.8);
   transition: opacity 0.3s;

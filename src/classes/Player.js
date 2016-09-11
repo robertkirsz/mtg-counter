@@ -8,6 +8,8 @@ export default class Player {
     if (raw.name)   this.name   = raw.name;
     if (raw.color)  this.color  = raw.color;
     if (raw.life)   this.life   = raw.life;
+    if (raw.poisonCounters)   this.poisonCounters  = raw.poisonCounters;
+    if (raw.commanderDamage)  this.commanderDamage = raw.commanderDamage;
 
     // localStorage.setItem('unitPreference', this.unitPreference);
   }

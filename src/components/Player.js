@@ -14,11 +14,11 @@ const Player = ({ player, updatePlayer }) => {
 
   return (
     <div className={`player player_${player.number}`}>
-      <ColorWheel playerColor={player.color} onChooseColor={chooseColor} />
-      <Counter type="life" />
+      {player.life === undefined ? <ColorWheel playerColor={player.color} onChooseColor={chooseColor} /> : null}
+      {player.life !== undefined ? <Counter type="life" value={player.life} /> : null}
       <div className="other">
-        <Counter type="poison" />
-        <Counter type="commander" />
+        <Counter type="poison" value={player.poisonCounters} />
+        <Counter type="commander" value={player.commanderDamage} />
       </div>
     </div>
   )

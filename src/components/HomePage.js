@@ -33,7 +33,7 @@ class HomePage extends Component {
       black : ['#4C0064', '#B3307E'/*, '#F5E5FF'*/].reverse(),
       red   : ['#94001A', '#E7093C'/*, '#FFE6EC'*/].reverse(),
       green : ['#01662C', '#82B300'/*, '#E7FFE5'*/].reverse(),
-  		clear : 'hsl(  0,  0%, 100%)'
+      clear : ['hsl(  0,  0%, 100%)', 'hsl(  0,  0%, 100%)'/*, 'hsl(  0,  0%, 100%)'*/]
     }
 
     const topBackgroundColors = {
@@ -42,20 +42,20 @@ class HomePage extends Component {
       black : ['#4C0064', '#B3307E'/*, '#F5E5FF'*/],
       red   : ['#94001A', '#E7093C'/*, '#FFE6EC'*/],
       green : ['#01662C', '#82B300'/*, '#E7FFE5'*/],
-      clear : 'hsl(  0,  0%, 100%)'
-  	}
+      clear : ['hsl(  0,  0%, 100%)', 'hsl(  0,  0%, 100%)'/*, 'hsl(  0,  0%, 100%)'*/]
+    }
 
     const { game } = this.state
     const bottomPlayerColor     = _.get(game, 'players[1].color', 'clear')
-  	const topPlayerColor        = _.get(game, 'players[0].color', 'clear')
+    const topPlayerColor        = _.get(game, 'players[0].color', 'clear')
     const bottomBackgroundColor = bottomBackgroundColors[bottomPlayerColor]
     const topBackgroundColor    = topBackgroundColors[topPlayerColor]
 
-  	return {
+    return {
       backgroundImage    : 'url(img/tekstury/png1.png), linear-gradient(to bottom, rgba(255,255,255,0.25), rgba(255,255,255,0.25)), linear-gradient(to bottom, ' + topBackgroundColor + ', ' + bottomBackgroundColor + ')',
-  		backgroundPosition : 'center, left top',
-  		backgroundSize     : 'cover, auto'
-  	}
+      backgroundPosition : 'center, left top',
+      backgroundSize     : 'cover, auto'
+    }
   }
 
   render() {
