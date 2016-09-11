@@ -32,8 +32,17 @@ const Player = ({ player, updatePlayer }) => {
 
   return (
     <div className={`player player_${player.number}`}>
-      {player.life === undefined ? <ColorWheel playerColor={player.color} onChooseColor={chooseColor} /> : null}
-      {player.life !== undefined ? <Counter type="life" value={player.life} onPlus={gainLife} onMinus={loseLife} /> : null}
+      <ColorWheel
+        playerColor={player.color}
+        onChooseColor={chooseColor}
+      />
+      <Counter
+        type="life"
+        value={player.life}
+        onPlus={gainLife}
+        onMinus={loseLife}
+        hidden={typeof player.life !== 'number'}
+      />
       <div className="other">
         {player.poisonCounters !== undefined ? <Counter type="poison" value={player.poisonCounters} /> : null}
         {player.commanderDamage !== undefined ? <Counter type="commander" value={player.commanderDamage} /> : null}
