@@ -7,7 +7,7 @@ export default class Player {
     if (raw.number) this.number = raw.number;
     if (raw.name)   this.name   = raw.name;
     if (raw.color)  this.color  = raw.color;
-    if (raw.life)   this.life   = raw.life;
+    if (typeof raw.life === 'number') this.life   = raw.life;
     if (raw.poisonCounters)   this.poisonCounters  = raw.poisonCounters;
     if (raw.commanderDamage)  this.commanderDamage = raw.commanderDamage;
 

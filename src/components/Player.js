@@ -12,13 +12,31 @@ const Player = ({ player, updatePlayer }) => {
     })
   }
 
+  const gainLife = (amount = 1) => {
+    updatePlayer({
+      playerNumber: player.number,
+      dataToUpdate: {
+        life: player.life + amount
+      }
+    })
+  }
+
+  const loseLife = (amount = 1) => {
+    updatePlayer({
+      playerNumber: player.number,
+      dataToUpdate: {
+        life: player.life - amount
+      }
+    })
+  }
+
   return (
     <div className={`player player_${player.number}`}>
       {player.life === undefined ? <ColorWheel playerColor={player.color} onChooseColor={chooseColor} /> : null}
-      {player.life !== undefined ? <Counter type="life" value={player.life} /> : null}
+      {player.life !== undefined ? <Counter type="life" value={player.life} onPlus={gainLife} onMinus={loseLife} /> : null}
       <div className="other">
-        <Counter type="poison" value={player.poisonCounters} />
-        <Counter type="commander" value={player.commanderDamage} />
+        {player.poisonCounters !== undefined ? <Counter type="poison" value={player.poisonCounters} /> : null}
+        {player.commanderDamage !== undefined ? <Counter type="commander" value={player.commanderDamage} /> : null}
       </div>
     </div>
   )
