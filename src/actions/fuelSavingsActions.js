@@ -24,3 +24,10 @@ export function calculateFuelSavings(settings, fieldName, value) {
     value
   };
 }
+
+export function settingsPanel(action) {
+  return {
+    type: types.CHANGE_SETTING_PANEL_STATE,
+    action
+  };
+}

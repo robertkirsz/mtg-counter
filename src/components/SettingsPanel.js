@@ -1,14 +1,51 @@
-import React from 'react';
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as actions from '../actions/fuelSavingsActions'
+import cn from 'classnames'
 
-const SettingsPanel = () => {
+function mapStateToProps(state) {
+  return {
+    settingsPanel: state.settingsPanel
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+const SettingsPanel = ({ actions, settingsPanel }) => {
+  console.warn('this.props.settingsPanel', settingsPanel)
+
+  const cogIconClick = () => {
+    actions.settingsPanel('toggle')
+  }
+
   return (
-    <div className="settings">
-      <div className="icons">
-        <i className="icon tokens" title="Tokens" /><i className="icon poison" title="Poison" /><i className="icon commander" title="Commander life counter" /><i className="icon fa fa-undo" title="Reset current game" /><button className="dice">Dice</button>
+    <div className={cn(
+      'settings',
+      { 'settings--opened': settingsPanel }
+    )}>
+      <div className="settings__icons-wrapper">
+        <span className="settings__icon tokens" title="Tokens" />
+        <span className="settings__icon poison" title="Poison counter" />
+        <span className="settings__icon commander" title="Commander damage" />
+        <span className="settings__icon dice" title="Dice" />
+        <span className="settings__icon fa fa-undo" title="Reset current game" />
       </div>
-      <i className="fa fa-cog" />
+      <span className="fa fa-cog" onClick={cogIconClick} />
     </div>
-  );
+  )
+}
+
+SettingsPanel.propTypes = {
+  actions: PropTypes.object.isRequired,
+  settingsPanel: PropTypes.bool.isRequired
 };
 
-export default SettingsPanel;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SettingsPanel)

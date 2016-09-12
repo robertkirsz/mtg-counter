@@ -316,19 +316,28 @@ h1 { margin: 0; padding: 0; }
   transform: translateY(50%);
 	&--opened {
 		background-color: rgba(black, 0.1);
-		.icons {
+		.settings__icons-wrapper {
 			opacity: 1;
 			left: 0;
-			pointer-events: auto; } }
-	.icons {
+			pointer-events: auto;
+		}
+		.fa-cog { transform: rotate(-90deg); }
+	}
+	&__icons-wrapper {
 		position: relative;
 		left: 250px;
 		opacity: 0;
 		float: left;
 		pointer-events: none;
 		transition: all 0.5s ease;
-		.poison, .commander, .tokens {
-    		position: relative;
+	}
+	&__icon {
+		display: inline-block;
+		margin-right: 10px;
+		transition: all 0.3s ease;
+		&:active { opacity: 0.85; transform: scale(1.1); }
+		&.poison, &.commander, &.dice {
+    	position: relative;
 			top: 6px;
 			height: 42px;
 			background-position: 50%;
@@ -336,27 +345,26 @@ h1 { margin: 0; padding: 0; }
 			background-size: contain;
 			opacity: 0.5;
 		}
-		.icon {
-			display: inline-block;
-			margin-right: 10px;
-			transition: all 0.3s ease;
-			&:active { opacity: 0.85; transform: scale(1.1); }
-			&.tokens {
-				background-image: url(../img/ikony/tokens.png);
-				width: 42px; }
-			&.poison {
-				background-image: url(../img/ikony/poison.svg);
-				width: 26px; }
-			&.commander {
-				background-image: url(../img/ikony/commander.svg);
-				width: 35px; } } }
-	.fa-cog {
-		transition: all 0.3s;
-		&.rotate { transform: rotate(-90deg); } }
+		&.poison {
+			background-image: url(../img/ikony/poison.svg);
+			width: 26px;
+		}
+		&.commander {
+			background-image: url(../img/ikony/commander.svg);
+			width: 35px;
+		}
+		&.dice {
+      background-image: url(../img/ikony/dice.svg);
+      width: 35px;
+		}
+	}
+	.fa-cog {	transition: all 0.3s; }
 	.fa, .icon {
 		&.disabled {
 			opacity: 0.15;
-			pointer-events: none; } }
+			pointer-events: none;
+		}
+	}
 }
 
 .plus, .minus {

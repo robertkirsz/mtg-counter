@@ -25,8 +25,8 @@ Counter.propTypes = {
 
 Counter.defaultProps = {
   value: 0,
-  onPlus: () => { console.log('Click') },
-  onMinus: () => { console.log('Click') },
+  // onPlus: () => { console.log('Click') },
+  // onMinus: () => { console.log('Click') },
   hidden: true
 }
 

@@ -14,5 +14,6 @@ export default {
       annual: 0,
       threeYear: 0
     }
-  }
-};
+  },
+  settingsPanel: false
+}

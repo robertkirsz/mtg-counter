@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 export default class Game {
   constructor (game) {
     this.update(game);
