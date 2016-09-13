@@ -1,7 +1,6 @@
 import * as constants from '../constants/actionTypes'
 import initialState from './initialState'
 import _ from 'lodash'
-import objectAssign from 'object-assign';
 
 export default function gameStateReducer(state = initialState.gameState, action) {
   let newState

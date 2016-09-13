@@ -73,7 +73,7 @@ class HomePage extends Component {
         id="main_window"
         className={cn(
           {
-            'poison': counters.poison,
+            'poison': counters.poison, // TODO: refactor this
             'commander': counters.commander
           }
         )}

@@ -59,8 +59,8 @@ const Player = ({ player, updatePlayer, actions, counters }) => {
         hidden={!player.isDefined()}
       />
       <div className="other">
-        {counters.poison ? <Counter type="poison" value={player.poisonCounters} /> : null}
-        {counters.commander ? <Counter type="commander" value={player.commanderDamage} /> : null}
+        <Counter type="poison" value={player.poisonCounters} hidden={!counters.poison} />
+        <Counter type="commander" value={player.commanderDamage} hidden={!counters.commander} />
       </div>
     </div>
   )
