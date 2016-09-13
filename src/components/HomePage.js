@@ -1,29 +1,35 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as actions from '../actions/fuelSavingsActions'
 import _ from 'lodash'
+import cn from 'classnames'
 
-import { Game, Player } from '../classes'
+import { bindMethods, stringify } from '../utils'
 
 import { SettingsPanel, PlayerComponent } from './'
+
+function mapStateToProps({ gameState }) {
+  return {
+    gameState
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
 
 class HomePage extends Component {
   constructor(props, context) {
     super(props, context)
 
-    this.updatePlayer = this.updatePlayer.bind(this)
-    this.setBackgroundColor = this.setBackgroundColor.bind(this)
-
-    this.state = {
-      game: new Game({
-        players: [
-          new Player({ number: 2 }),
-          new Player({ number: 1 })
-        ]
-      })
-    }
+    bindMethods(this)
   }
 
   updatePlayer (updateData) {
-    this.setState({ game: this.state.game.updatePlayer(updateData) })
+    this.props.actions.updatePlayer(updateData)
   }
 
   setBackgroundColor () {
@@ -45,7 +51,7 @@ class HomePage extends Component {
       clear : ['hsl(  0,  0%, 100%)', 'hsl(  0,  0%, 100%)'/*, 'hsl(  0,  0%, 100%)'*/]
     }
 
-    const { game } = this.state
+    const { game } = this.props.gameState
     const bottomPlayerColor     = _.get(game, 'players[1].color', 'clear')
     const topPlayerColor        = _.get(game, 'players[0].color', 'clear')
     const bottomBackgroundColor = bottomBackgroundColors[bottomPlayerColor]
@@ -59,10 +65,20 @@ class HomePage extends Component {
   }
 
   render() {
-    const { game } = this.state
+    const { counters, game } = this.props.gameState
+    console.warn('HomePage', stringify(this.props.gameState))
 
     return (
-      <div id="main_window" style={this.setBackgroundColor()}>
+      <div
+        id="main_window"
+        className={cn(
+          {
+            'poison': counters.poison,
+            'commander': counters.commander
+          }
+        )}
+        style={this.setBackgroundColor()}
+      >
 
         { /*
           <div id="warning" className="layer">
@@ -86,19 +102,6 @@ class HomePage extends Component {
             <div className="die player_2">6</div>
             <div className="die player_1">3</div>
           </div>
-
-          <div id="token_list" className="layer">
-            <div className="list">
-              <h1>Choose Token<i className="fa fa-times" /></h1>
-              <ul></ul>
-            </div>
-            <div className="artworks">
-              <h1><i className="fa fa-arrow-left" />Choose Artwork<i className="fa fa-times" /></h1>
-              <div className="cards" />
-            </div>
-          </div>
-
-          <div id="cards" className="clearfix" />
         */ }
 
         <SettingsPanel />
@@ -120,4 +123,12 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage
+HomePage.propTypes = {
+  actions: PropTypes.object.isRequired,
+  gameState: PropTypes.object.isRequired
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomePage)

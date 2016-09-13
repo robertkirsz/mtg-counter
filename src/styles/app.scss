@@ -185,8 +185,8 @@ h1 { margin: 0; padding: 0; }
 	transition: opacity 1s;
 	&.hidden { opacity: 0; }
 	&.poison, &.commander {
-		.player .life { margin-top: -30px; }
-		.row .player .life { margin-top: -50px; } }
+		.counter--life { margin-top: -30px; }
+	}
 }
 
 #counters {
@@ -203,16 +203,17 @@ h1 { margin: 0; padding: 0; }
 		color: rgba(black, 0.5);
 		position: relative;
 		.other {
-			display: none; // display: flex;
+			display: flex;
 			flex: 1;
 			justify-content: space-around;
 			width: 100%;
 			position: absolute;
-    		bottom: 5px;
+    	bottom: 5px;
 			.poison, .commander {
 				display: flex;
 				justify-content: space-around;
-				align-items: center; }
+				align-items: center;
+			}
 			.minus, .plus {
 				font-size: 1.5em;
 				padding: 20px 0;
@@ -240,26 +241,6 @@ h1 { margin: 0; padding: 0; }
 					background-image: url(../img/ikony/poison.png);
 					background-position: 50% 50%; } } }
 	.player_2 { transform: rotate(180deg); }
-	&.row {
-		flex: 1;
-		flex-flow: row wrap;
-		.player {
-			align-items: flex-end;
-			.life {
-				font-size: 0.5em;
-				flex-flow: row wrap; text-align: center;
-				.minus, .plus {
-					flex: 1 auto;
-					font-size: 4em; }
-				.count { font-size: 11em; } }
-			.other {
-				bottom: 0;
-				.poison, .commander {
-					transform: scale(0.65);
-					transform-origin: center top;
-    				margin: 0px -10px -22px -10px; } } }
-		.player_1 { order: 1; }
-		.player_2 { order: 2; transform: none; } }
 }
 
 .color-wheel {
@@ -291,8 +272,7 @@ h1 { margin: 0; padding: 0; }
     flex-flow: row nowrap;
     justify-content: space-around;
     align-items: center;
-    transition: margin-top 0.3s;
-    transition: opacity 0.3s;
+    transition: all 0.3s;
     .minus, .plus {
       font-size: 4.5em;
       padding: 20px 0;

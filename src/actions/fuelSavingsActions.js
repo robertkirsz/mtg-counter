@@ -31,3 +31,18 @@ export function settingsPanel(action) {
     action
   };
 }
+
+export function showCounters(counterType) {
+  return {
+    type: types.SHOW_COUNTERS,
+    counterType
+  };
+}
+
+export function updatePlayer({ playerNumber, dataToUpdate }) {
+  return {
+    type: types.UPDATE_PLAYER,
+    playerNumber,
+    dataToUpdate
+  };
+}

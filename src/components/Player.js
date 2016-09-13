@@ -1,8 +1,23 @@
 import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as actions from '../actions/fuelSavingsActions'
 
 import { ColorWheel, Counter } from './'
 
-const Player = ({ player, updatePlayer }) => {
+function mapStateToProps({ gameState }) {
+  return {
+    counters: gameState.counters
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+const Player = ({ player, updatePlayer, actions, counters }) => {
   const chooseColor = (choosenColor) => {
     updatePlayer({
       playerNumber: player.number,
@@ -33,19 +48,19 @@ const Player = ({ player, updatePlayer }) => {
   return (
     <div className={`player player_${player.number}`}>
       <ColorWheel
-        playerColor={player.color}
         onChooseColor={chooseColor}
+        hidden={player.isDefined()}
       />
       <Counter
         type="life"
         value={player.life}
         onPlus={gainLife}
         onMinus={loseLife}
-        hidden={typeof player.life !== 'number'}
+        hidden={!player.isDefined()}
       />
       <div className="other">
-        {player.poisonCounters !== undefined ? <Counter type="poison" value={player.poisonCounters} /> : null}
-        {player.commanderDamage !== undefined ? <Counter type="commander" value={player.commanderDamage} /> : null}
+        {counters.poison ? <Counter type="poison" value={player.poisonCounters} /> : null}
+        {counters.commander ? <Counter type="commander" value={player.commanderDamage} /> : null}
       </div>
     </div>
   )
@@ -53,7 +68,14 @@ const Player = ({ player, updatePlayer }) => {
 
 Player.propTypes = {
   player: PropTypes.object,
-  updatePlayer: PropTypes.func
+  updatePlayer: PropTypes.func,
+  actions: PropTypes.object,
+  counters: PropTypes.object
 }
 
-export default Player
+// export default Player
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Player)

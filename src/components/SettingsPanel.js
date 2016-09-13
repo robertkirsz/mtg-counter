@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux'
 import * as actions from '../actions/fuelSavingsActions'
 import cn from 'classnames'
 
-function mapStateToProps(state) {
+function mapStateToProps({ gameState }) {
   return {
-    settingsPanel: state.settingsPanel
+    settingsPanel: gameState.settingsPanel
   }
 }
 
@@ -17,10 +17,13 @@ function mapDispatchToProps(dispatch) {
 }
 
 const SettingsPanel = ({ actions, settingsPanel }) => {
-  console.warn('this.props.settingsPanel', settingsPanel)
-
   const cogIconClick = () => {
     actions.settingsPanel('toggle')
+  }
+
+  const settingsPanelIconClick = (iconType) => {
+    if (iconType === 'poison') actions.showCounters('poison')
+    if (iconType === 'commander') actions.showCounters('commander')
   }
 
   return (
@@ -29,11 +32,26 @@ const SettingsPanel = ({ actions, settingsPanel }) => {
       { 'settings--opened': settingsPanel }
     )}>
       <div className="settings__icons-wrapper">
-        <span className="settings__icon tokens" title="Tokens" />
-        <span className="settings__icon poison" title="Poison counter" />
-        <span className="settings__icon commander" title="Commander damage" />
-        <span className="settings__icon dice" title="Dice" />
-        <span className="settings__icon fa fa-undo" title="Reset current game" />
+        <span
+          className="settings__icon poison"
+          onClick={() => { settingsPanelIconClick('poison'); }}
+          title="Poison counter"
+        />
+        <span
+          className="settings__icon commander"
+          onClick={() => { settingsPanelIconClick('commander'); }}
+          title="Commander damage"
+        />
+        <span
+          className="settings__icon dice"
+          onClick={() => { settingsPanelIconClick('dice'); }}
+          title="Dice"
+        />
+        <span
+          className="settings__icon fa fa-undo"
+          onClick={() => { settingsPanelIconClick('reset'); }}
+          title="Reset current game"
+        />
       </div>
       <span className="fa fa-cog" onClick={cogIconClick} />
     </div>

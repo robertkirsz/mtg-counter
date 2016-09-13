@@ -21,7 +21,6 @@ export default class Game {
     // If we're changing color of a new player, set his life as well
     if (!playerObject.color && dataToUpdate.color) dataToUpdate.life = 20
     playerObject.update(dataToUpdate)
-
     return gameCopy
   }
 

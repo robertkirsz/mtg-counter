@@ -3,11 +3,11 @@ import cn from 'classnames'
 
 const manaColors = ['white', 'blue', 'black', 'red', 'green'];
 
-const ColorWheel = ({ playerColor, onChooseColor }) => {
+const ColorWheel = ({ hidden, onChooseColor }) => {
   return (
     <div className={cn(
       'color-wheel',
-      { hidden: playerColor }
+      { hidden: hidden }
     )}>
       {
         manaColors.map(manaColor => (
@@ -25,7 +25,7 @@ const ColorWheel = ({ playerColor, onChooseColor }) => {
 }
 
 ColorWheel.propTypes = {
-  playerColor: PropTypes.string,
+  hidden: PropTypes.bool,
   onChooseColor: PropTypes.func
 }
 

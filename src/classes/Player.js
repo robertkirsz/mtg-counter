@@ -14,6 +14,10 @@ export default class Player {
     // localStorage.setItem('unitPreference', this.unitPreference);
   }
 
+  isDefined () {
+    return this.color && typeof this.life === 'number'
+  }
+
   copy () {
     return new Player(this);
   }

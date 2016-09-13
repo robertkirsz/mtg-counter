@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import fuelSavings from './fuelSavingsReducer';
-import settingsPanel from './settingsPanelReducer';
+import gameState from './gameStateReducer';
 import {routerReducer} from 'react-router-redux';
 
 const rootReducer = combineReducers({
   fuelSavings,
-  settingsPanel,
+  gameState,
   routing: routerReducer
 });
 
