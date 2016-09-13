@@ -30,6 +30,7 @@ export default function gameStateReducer(state = initialState.gameState, action)
       // If we're changing color of a new player, set his life as well
       if (!playerObject.color && action.dataToUpdate.color) action.dataToUpdate.life = 20
       playerObject.update(action.dataToUpdate)
+      console.warn('action.dataToUpdate', action.dataToUpdate);
 
       newState = {
         ...state,

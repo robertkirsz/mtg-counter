@@ -26,7 +26,6 @@ const Player = ({ player, updatePlayer, actions, counters }) => {
       }
     })
   }
-
   const gainLife = (amount = 1) => {
     updatePlayer({
       playerNumber: player.number,
@@ -35,12 +34,45 @@ const Player = ({ player, updatePlayer, actions, counters }) => {
       }
     })
   }
-
   const loseLife = (amount = 1) => {
     updatePlayer({
       playerNumber: player.number,
       dataToUpdate: {
         life: player.life - amount
+      }
+    })
+  }
+  const addPoisonCounter = (amount = 1) => {
+    updatePlayer({
+      playerNumber: player.number,
+      dataToUpdate: {
+        poisonCounters: player.poisonCounters + amount
+      }
+    })
+  }
+  const removePoisonCounter = (amount = 1) => {
+    updatePlayer({
+      playerNumber: player.number,
+      dataToUpdate: {
+        poisonCounters: player.poisonCounters - amount
+      }
+    })
+  }
+  const addCommanderDamage = (amount = 1) => {
+    updatePlayer({
+      playerNumber: player.number,
+      dataToUpdate: {
+        commanderDamage: player.commanderDamage + amount,
+        life: player.life - amount
+      }
+    })
+  }
+  const removeCommanderDamage = (amount = 1) => {
+    updatePlayer({
+      playerNumber: player.number,
+      dataToUpdate: {
+        commanderDamage: player.commanderDamage - amount,
+        life: player.life + amount
       }
     })
   }
@@ -59,8 +91,20 @@ const Player = ({ player, updatePlayer, actions, counters }) => {
         hidden={!player.isDefined()}
       />
       <div className="other">
-        <Counter type="poison" value={player.poisonCounters} hidden={!counters.poison} />
-        <Counter type="commander" value={player.commanderDamage} hidden={!counters.commander} />
+        <Counter
+          type="poison"
+          value={player.poisonCounters}
+          onPlus={addPoisonCounter}
+          onMinus={removePoisonCounter}
+          hidden={!counters.poison}
+        />
+        <Counter
+          type="commander"
+          value={player.commanderDamage}
+          onPlus={addCommanderDamage}
+          onMinus={removeCommanderDamage}
+          hidden={!counters.commander}
+        />
       </div>
     </div>
   )

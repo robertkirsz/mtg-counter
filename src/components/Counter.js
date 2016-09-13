@@ -17,16 +17,14 @@ const Counter = ({ type, value, onPlus, onMinus, hidden }) => {
 
 Counter.propTypes = {
   type: PropTypes.string.isRequired,
-  value: PropTypes.number,
-  onPlus: PropTypes.func,
-  onMinus: PropTypes.func,
+  value: PropTypes.number.isRequired,
+  onPlus: PropTypes.func.isRequired,
+  onMinus: PropTypes.func.isRequired,
   hidden: PropTypes.bool
 }
 
 Counter.defaultProps = {
   value: 0,
-  // onPlus: () => { console.log('Click') },
-  // onMinus: () => { console.log('Click') },
   hidden: true
 }
 
