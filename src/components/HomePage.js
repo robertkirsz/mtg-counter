@@ -66,7 +66,7 @@ class HomePage extends Component {
 
   render() {
     const { counters, game } = this.props.gameState
-    console.warn('HomePage', stringify(this.props.gameState))
+    // console.warn('HomePage', stringify(this.props.gameState))
 
     return (
       <div

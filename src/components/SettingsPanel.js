@@ -24,7 +24,6 @@ const SettingsPanel = ({ actions, settingsPanel }) => {
   const settingsPanelIconClick = (iconType) => {
     if (iconType === 'poison') actions.showCounters('poison')
     if (iconType === 'commander') actions.showCounters('commander')
-    // TODO: commander should change life to 40
   }
 
   return (

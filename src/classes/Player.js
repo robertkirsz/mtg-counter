@@ -1,22 +1,23 @@
 export default class Player {
   constructor (player) {
-    this.poisonCounters = 0;
-    this.commanderDamage = 0;
-    this.update(player);
+    this.poisonCounters = 0
+    this.commanderDamage = 0
+    this.update(player)
   }
 
   update (raw) {
-    if (raw.number) this.number = raw.number;
-    if (raw.name)   this.name   = raw.name;
-    if (raw.color)  this.color  = raw.color;
+    if (raw.number) this.number = raw.number
+    if (raw.name)   this.name   = raw.name
+    if (raw.color)  this.color  = raw.color
     if (typeof raw.life === 'number')
-      this.life = raw.life;
+      this.life = raw.life
     if (typeof raw.poisonCounters === 'number')
-      this.poisonCounters  = raw.poisonCounters;
+      this.poisonCounters  = raw.poisonCounters
     if (typeof raw.commanderDamage === 'number')
-      this.commanderDamage = raw.commanderDamage;
+      this.commanderDamage = raw.commanderDamage
+    if (raw.lifeBackup) this.lifeBackup = raw.lifeBackup
 
-    // localStorage.setItem('unitPreference', this.unitPreference);
+    // localStorage.setItem('unitPreference', this.unitPreference)
   }
 
   isDefined () {
@@ -24,6 +25,6 @@ export default class Player {
   }
 
   copy () {
-    return new Player(this);
+    return new Player(this)
   }
 }
