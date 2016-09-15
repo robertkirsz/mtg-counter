@@ -38,13 +38,14 @@ class SettingsPanel extends Component {
   }
 
   settingsPanelIconClick (iconType) {
-    if (iconType === 'poison') this.props.actions.showCounters('poison')
-    if (iconType === 'commander') this.props.actions.showCounters('commander')
-    if (iconType === 'reset') console.log('reste')
+    const { actions } = this.props
+    if (iconType === 'poison') actions.showCounters('poison')
+    if (iconType === 'commander') actions.showCounters('commander')
+    if (iconType === 'reset') actions.resetGame()
   }
 
   windowClick (e) {
-    const clickedOut = !isContainedIn(e.target, this.refs.settingPanel);
+    const clickedOut = !isContainedIn(e.target, this.refs.settingPanel)
     if (this.props.settingsPanel && clickedOut) this.props.actions.settingsPanel('toggle')
   }
 

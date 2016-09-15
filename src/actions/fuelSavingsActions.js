@@ -46,3 +46,9 @@ export function updatePlayer({ playerNumber, dataToUpdate }) {
     dataToUpdate
   };
 }
+
+export function resetGame() {
+  return {
+    type: types.RESET_GAME
+  };
+}
