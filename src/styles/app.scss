@@ -31,7 +31,10 @@ html, body, #app { height: 100vh; width: 100vw; margin: 0; padding: 0; }
 ul { margin: 0; padding: 0; list-style: none; }
 li { margin: 0; padding: 0; }
 h1 { margin: 0; padding: 0; }
-#main_window { height: 100%; }
+#main_window {
+	height: 100%;
+	perspective: 1500px;
+}
 
 .hidden {
   opacity: 0;
@@ -51,9 +54,13 @@ h1 { margin: 0; padding: 0; }
 
 #dice {
 	@include flex(column, nowrap, space-around, center);
-	display: none; // display: flex;
-	background-color: rgba(black, 0.85);
 	z-index: 99;
+	transition: all 0.3s;
+	backface-visibility: hidden;
+	&.hidden {
+		pointer-events: none;
+		transform: rotateY(180deg);
+	}
 	.die {
 		width: 120px; height: 120px;
 		color: white;
@@ -63,38 +70,7 @@ h1 { margin: 0; padding: 0; }
 		font-size: 80px;
 		line-height: 115px;
 		text-align: center;
-		cursor: pointer;
 		&.player_2 { transform: rotate(180deg); } }
-}
-
-#warning {
-	@include flex(column, nowrap, center, center);
-	display: none; // display: flex;
-	background-color: rgba(black, 0.85);
-	z-index: 99;
-	.box {
-		max-width: 500px;
-		margin: 15px; padding: 10px;
-		background-color: black;
-		color: white;
-		font-size: 1.5em;
-		text-align: center;
-		.fa {
-			margin: 0 15%; } }
-}
-
-#game_over_screen {
-	@include flex(column, nowrap, center, center);
-	background-color: rgba(black, 0.85);
-	display: none; // display: flex;
-	z-index: 99;
-	.box {
-		max-width: 500px;
-		margin: 15px; padding: 10px;
-		background-color: black;
-		color: white;
-		text-align: center;
-		font-size: 1.5em; }
 }
 
 #main_window {
@@ -150,6 +126,13 @@ h1 { margin: 0; padding: 0; }
 	display: flex;
 	flex-flow: column nowrap;
 	z-index: 1;
+	opacity: 1;
+	transition: all 0.3s;
+	backface-visibility: hidden;
+	&.hidden {
+		transform: rotateY(-180deg);
+		pointer-events: none;
+	}
 	.player {
 		flex: 1;
 		display: flex;
@@ -237,7 +220,7 @@ h1 { margin: 0; padding: 0; }
 	font-size: 2.5em;
 	padding: 0 5px;
 	text-align: right;
-	transition: background-color 0.3s ease;
+	transition: background-color 0.3s ease, opacity 0.4s ease;
 	overflow: hidden;
 	z-index: 2;
   transform: translateY(50%);
@@ -249,6 +232,11 @@ h1 { margin: 0; padding: 0; }
 			pointer-events: auto;
 		}
 		.fa-cog { transform: rotate(-90deg); }
+	}
+	&--hidden {
+		transition: background-color 0.3s ease, opacity 0.3s ease 0.3s;
+		pointer-events: none;
+		opacity: 0;
 	}
 	&__icons-wrapper {
 		position: relative;
@@ -286,8 +274,8 @@ h1 { margin: 0; padding: 0; }
 		}
 	}
 	.fa-cog {	transition: all 0.3s; }
-	.fa, .icon {
-		&.disabled {
+	.fa, .settings__icon {
+		&[disabled] {
 			opacity: 0.15;
 			pointer-events: none;
 		}
@@ -301,141 +289,32 @@ h1 { margin: 0; padding: 0; }
 	}
 }
 
-#wyniki:not(.layer) {
-	position: absolute;
-	top: 10px; right: 10px;
-	padding: 0;
-	background: none;
-}
-
-@media (max-width: 999px) {
-	#wyniki:not(.layer), #info {
-		display: none;
-	}
-	.tokens-visible {
-		.settings {
-			margin: 0 !important;
-			bottom: 110px;
-			&.opened { background-color: rgba(white, 0.5); }
-			.fa-cog {
-				position: relative;
-			    right: 50%;
-			    margin-right: -17px;
-				transition: opacity 0.3s, right 0.3s, margin-right 0.3s, transform 0.3s ease 0.2s;
-			    &.rotate {
-			    	transform: rotate(90deg);
-			    	right: 5px;
-			    	margin-right: 0; } } }
-	}
-}
-
 @media (min-width: 1000px) {
 	body { perspective: 500px; }
 	.tokens-visible .settings { bottom: 160px; }
 	#main_window {
 		position: absolute;
 		margin: 0 auto;
-		// top: 170px;
 		top: 90px;
 		left: 0; right: 0; bottom: 0;
 		width: 360px;
-		// height: 560px;
 		height: 640px;
 		box-shadow: inset 0px 0px 10px -1px rgba(0,0,0,0.75);
 		z-index: 2;
 		&:before {
 			content: '';
 			position: absolute;
-			// top: -156px;
 			top: -76px;
 			left: -28px;
 			width: 418px; height: 812px;
 			background: url(../img/bgphone.png) no-repeat;
 			z-index: 1; } }
-	#token_list {
-		.list li {
-			cursor: pointer;
-			&:hover { background-color: rgba(black, 0.7); } } }
 	.settings {
 		&.opened { background-color: rgba(black, 0.1); }
 		.icon:hover { opacity: 1; }
 		.fa:hover { opacity: 1; color: rgba(0,0,0,1); }
 	}
-	.icon, .fa, .minus, .plus {
+	.icon, .settings__icon, .fa, .minus, .plus {
 		cursor: pointer;
 	}
-}
-
-/*!
-Animate.css - http://daneden.me/animate
-Licensed under the MIT license - http://opensource.org/licenses/MIT
-
-Copyright (c) 2014 Daniel Eden
-*/
-
-.animated {
-  animation-duration: 0.3s;
-  animation-fill-mode: both;
-}
-
-@keyframes fadeInLeft {
-  0% {
-    opacity: 0;
-    transform: translate3d(-100%, 0, 0);
-  }
-
-  100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.fadeInLeft {
-  animation-name: fadeInLeft;
-}
-
-@keyframes fadeInRight {
-  0% {
-    opacity: 0;
-    transform: translate3d(100%, 0, 0);
-  }
-
-  100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.fadeInRight {
-  animation-name: fadeInRight;
-}
-
-@keyframes fadeOutLeft {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate3d(-100%, 0, 0);
-  }
-}
-
-.fadeOutLeft {
-  animation-name: fadeOutLeft;
-}
-
-@keyframes fadeOutRight {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate3d(100%, 0, 0);
-  }
-}
-
-.fadeOutRight {
-  animation-name: fadeOutRight;
 }

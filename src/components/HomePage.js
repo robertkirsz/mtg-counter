@@ -5,9 +5,9 @@ import * as actions from '../actions/fuelSavingsActions'
 import _ from 'lodash'
 import cn from 'classnames'
 
-import { bindMethods, stringify } from '../utils'
+import { bindMethods } from '../utils'
 
-import { SettingsPanel, PlayerComponent } from './'
+import { SettingsPanel, PlayerComponent, DiceScreen } from './'
 
 function mapStateToProps({ gameState }) {
   return {
@@ -26,13 +26,22 @@ class HomePage extends Component {
     super(props, context)
 
     bindMethods(this)
+
+    this.state = {
+      backgroundStyles: this.setBackgroundColor(props.gameState.game)
+    }
   }
 
-  updatePlayer (updateData) {
-    this.props.actions.updatePlayer(updateData)
+  componentWillReceiveProps (nextProps) {
+    const playersUpdated = this.props.gameState.game.players !== nextProps.gameState.game.players
+    if (playersUpdated) {
+      console.warn('HomePage -> componentWillReceiveProps', playersUpdated)
+      this.setState({ backgroundStyles: this.setBackgroundColor(nextProps.gameState.game) })
+    }
   }
 
-  setBackgroundColor () {
+  setBackgroundColor (game) { // <- should only nedd game.players
+    console.warn('setBackgroundColor')
       const bottomBackgroundColors = {
       white : ['#FC9700', '#FFE292'/*, '#FFF4E4'*/].reverse(),
       blue  : ['#004394', '#009AD0'/*, '#E0F2FF'*/].reverse(),
@@ -51,9 +60,8 @@ class HomePage extends Component {
       clear : ['hsl(  0,  0%, 100%)', 'hsl(  0,  0%, 100%)'/*, 'hsl(  0,  0%, 100%)'*/]
     }
 
-    const { game } = this.props.gameState
-    const bottomPlayerColor     = _.get(game, 'players[1].color', 'clear')
-    const topPlayerColor        = _.get(game, 'players[0].color', 'clear')
+    const bottomPlayerColor     = _.get(game, 'players[1].color') || 'clear'
+    const topPlayerColor        = _.get(game, 'players[0].color') || 'clear'
     const bottomBackgroundColor = bottomBackgroundColors[bottomPlayerColor]
     const topBackgroundColor    = topBackgroundColors[topPlayerColor]
 
@@ -65,8 +73,10 @@ class HomePage extends Component {
   }
 
   render() {
-    const { counters, game } = this.props.gameState
-    // console.warn('HomePage', stringify(this.props.gameState))
+    const {
+      gameState: { counters, game, diceScreen },
+      actions
+    } = this.props;
 
     return (
       <div
@@ -77,42 +87,21 @@ class HomePage extends Component {
             'commander': counters.commander
           }
         )}
-        style={this.setBackgroundColor()}
+        style={this.state.backgroundStyles}  // TODO: refactor this, move to shouldUpdate
       >
+        <DiceScreen
+          hideScreen={!diceScreen}
+          actions={actions}
+        />
 
-        { /*
-          <div id="warning" className="layer">
-            <div className="box">
-              <p>Are you sure you want to reset the game?</p>
-              <i className="fa fa-check fa-2x" />
-              <i className="fa fa-times fa-2x" />
-            </div>
-          </div>
+        <SettingsPanel hidden={diceScreen} />
 
-          <div id="game_over_screen" className="layer">
-            <div className="box">
-              <p className="message">Message template</p>
-              <button>Continue playing</button>
-              <button>See results</button>
-              <button>Start new game</button>
-            </div>
-          </div>
-
-          <div id="dice" className="layer">
-            <div className="die player_2">6</div>
-            <div className="die player_1">3</div>
-          </div>
-        */ }
-
-        <SettingsPanel />
-
-        <div id="counters">
+        <div id="counters" className={cn({ hidden: diceScreen })}>
           {
             game.players.map(player => (
               <PlayerComponent
                 key={player.number}
                 player={player}
-                updatePlayer={this.updatePlayer}
               />
             ))
           }

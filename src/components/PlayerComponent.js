@@ -17,9 +17,9 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-const Player = ({ player, updatePlayer, actions, counters }) => {
+const PlayerComponent = ({ player, actions, counters }) => {
   const chooseColor = (choosenColor) => {
-    updatePlayer({
+    actions.updatePlayer({
       playerNumber: player.number,
       dataToUpdate: {
         color: choosenColor
@@ -27,7 +27,7 @@ const Player = ({ player, updatePlayer, actions, counters }) => {
     })
   }
   const gainLife = (amount = 1) => {
-    updatePlayer({
+    actions.updatePlayer({
       playerNumber: player.number,
       dataToUpdate: {
         life: player.life + amount
@@ -35,7 +35,7 @@ const Player = ({ player, updatePlayer, actions, counters }) => {
     })
   }
   const loseLife = (amount = 1) => {
-    updatePlayer({
+    actions.updatePlayer({
       playerNumber: player.number,
       dataToUpdate: {
         life: player.life - amount
@@ -43,7 +43,7 @@ const Player = ({ player, updatePlayer, actions, counters }) => {
     })
   }
   const addPoisonCounter = (amount = 1) => {
-    updatePlayer({
+    actions.updatePlayer({
       playerNumber: player.number,
       dataToUpdate: {
         poisonCounters: player.poisonCounters + amount
@@ -51,7 +51,7 @@ const Player = ({ player, updatePlayer, actions, counters }) => {
     })
   }
   const removePoisonCounter = (amount = 1) => {
-    updatePlayer({
+    actions.updatePlayer({
       playerNumber: player.number,
       dataToUpdate: {
         poisonCounters: player.poisonCounters - amount
@@ -59,7 +59,7 @@ const Player = ({ player, updatePlayer, actions, counters }) => {
     })
   }
   const addCommanderDamage = (amount = 1) => {
-    updatePlayer({
+    actions.updatePlayer({
       playerNumber: player.number,
       dataToUpdate: {
         commanderDamage: player.commanderDamage + amount,
@@ -68,7 +68,7 @@ const Player = ({ player, updatePlayer, actions, counters }) => {
     })
   }
   const removeCommanderDamage = (amount = 1) => {
-    updatePlayer({
+    actions.updatePlayer({
       playerNumber: player.number,
       dataToUpdate: {
         commanderDamage: player.commanderDamage - amount,
@@ -96,30 +96,27 @@ const Player = ({ player, updatePlayer, actions, counters }) => {
           value={player.poisonCounters}
           onPlus={addPoisonCounter}
           onMinus={removePoisonCounter}
-          hidden={!counters.poison}
+          hidden={!player.color || !counters.poison}
         />
         <Counter
           type="commander"
           value={player.commanderDamage}
           onPlus={addCommanderDamage}
           onMinus={removeCommanderDamage}
-          hidden={!counters.commander}
+          hidden={!player.color || !counters.commander}
         />
       </div>
     </div>
   )
 }
 
-Player.propTypes = {
+PlayerComponent.propTypes = {
   player: PropTypes.object,
-  updatePlayer: PropTypes.func,
   actions: PropTypes.object,
   counters: PropTypes.object
 }
 
-// export default Player
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Player)
+)(PlayerComponent)

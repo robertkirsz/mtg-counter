@@ -8,7 +8,7 @@ export default function gameStateReducer(state = initialState.gameState, action)
 
   switch (action.type) {
 
-    case constants.SHOW_COUNTERS:
+    case constants.SHOW_COUNTERS: {
       const counters = {...newState.counters}
       counters[action.counterType] = !counters[action.counterType]
       newState.counters = counters
@@ -32,15 +32,24 @@ export default function gameStateReducer(state = initialState.gameState, action)
       }
 
       return newState
+    }
 
-    case constants.CHANGE_SETTING_PANEL_STATE:
+    case constants.TOGGLE_SCREEN: {
+      if (action.screenName === 'dice') newState.diceScreen = !newState.diceScreen
+      newState.settingsPanel = false
+
+      return newState
+    }
+
+    case constants.CHANGE_SETTING_PANEL_STATE: {
       if (action.action === 'close') newState.settingsPanel = false
       if (action.action === 'open') newState.settingsPanel = true
       if (action.action === 'toggle') newState.settingsPanel = !newState.settingsPanel
 
       return newState
+    }
 
-    case constants.RESET_GAME:
+    case constants.RESET_GAME: {
       players = _.map(newState.game.players, player => {
         let _player = player.copy()
         const clearData = { lifeBackup: 0, poisonCounters: 0, commanderDamage: 0 }
@@ -57,12 +66,14 @@ export default function gameStateReducer(state = initialState.gameState, action)
       }
 
       return newState
+    }
 
-    case constants.UPDATE_PLAYER:
+    case constants.UPDATE_PLAYER: {
       const playerIndex = _.findIndex(players, { number: action.playerNumber })
       const playerObject = players[playerIndex].copy()
       // If we're changing color of a new player, set his life as well
-      if (!playerObject.color && action.dataToUpdate.color) action.dataToUpdate.life = 20
+      if (!playerObject.color && action.dataToUpdate.color && playerObject.life === undefined)
+        action.dataToUpdate.life = 20
       playerObject.update(action.dataToUpdate)
 
       newState = {
@@ -78,8 +89,10 @@ export default function gameStateReducer(state = initialState.gameState, action)
       }
 
       return newState
+    }
 
-    default:
+    default: {
       return state
+    }
   }
 }

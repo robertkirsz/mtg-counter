@@ -25,6 +25,7 @@ export default {
       ]
     }),
     settingsPanel: false,
+    diceScreen: false,
     counters: {
       life: false,
       poison: false,

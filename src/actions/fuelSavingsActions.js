@@ -52,3 +52,10 @@ export function resetGame() {
     type: types.RESET_GAME
   };
 }
+
+export function toggleScreen(screenName) {
+  return {
+    type: types.TOGGLE_SCREEN,
+    screenName
+  };
+}

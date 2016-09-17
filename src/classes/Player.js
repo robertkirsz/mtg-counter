@@ -8,7 +8,7 @@ export default class Player {
   update (raw) {
     if (raw.number) this.number = raw.number
     if (raw.name)   this.name   = raw.name
-    if (raw.color)  this.color  = raw.color
+    if (raw.color !== undefined)  this.color = raw.color
     if (typeof raw.life === 'number')
       this.life = raw.life
     if (typeof raw.poisonCounters === 'number')
