@@ -1,34 +1,7 @@
-$defaultTextColor: #161718;
-
-$gray0: #2b2b2b;
-$gray1: #3C3C3C;
-$gray2: #4A4A49;
-$gray3: #808080;
-$gray4: #B3B3B3;
-$gray5: #D4D4D4;
-$gray6: #E5E5E5;
-$gray7: #F3F3F3;
-
-$green: #00F3A0;
-$yellow: #F8C641;
-$darkYellow: #9E7B1F;
-$orange: #f58c1c;
-$red: #FF495F;
-$blue: #00F4CB;
-
-$colorsGradient: linear-gradient(to right, $red 0%, $yellow 31%, $green 100%);
-$yellowToOrangeGradient: linear-gradient(to right, $yellow 0%, $yellow 83%, $orange 100%);
-
-$headerHeight: 70px;
-$athletesLayoutHeaderHeight: 120px;
-$athleteLayoutHeaderHeight: 43px;
-$timelineHeight: 85px;
-$maxAppWidth: 1440px;
+$white: hsl( 56, 16%, 98%);
+$blue:  hsl(199, 32%, 86%);
+$black: hsl( 10,  6%, 79%);
+$red:   hsl( 15, 43%, 77%);
+$green: hsl(140, 27%, 80%);
 
 $default-time: 0.3s;
-
-$modal-bg: $gray6;
-$modal-shadow: 7px 7px 10px rgba(0, 0, 0, .6);
-
-$select-shadow: 12px 8px 17px rgba(0, 0, 0, .35);
-$select-animation-duration: .25s;

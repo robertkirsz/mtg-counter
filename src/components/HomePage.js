@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as actions from '../actions/fuelSavingsActions'
+import * as actions from '../actions'
 import _ from 'lodash'
 import cn from 'classnames'
 

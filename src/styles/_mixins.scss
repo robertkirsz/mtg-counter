@@ -31,13 +31,6 @@
   align-content: $align-content;
 }
 
-@mixin placeholder {
-  ::-webkit-input-placeholder { @content }
-  :-moz-placeholder { @content }
-  ::-moz-placeholder { @content }
-  :-ms-input-placeholder { @content }
-}
-
 // allows you to specify styles for an element when it is in another element
 @mixin is-in ($selector) {
   #{$selector} & {
@@ -45,56 +38,9 @@
   }
 }
 
-// PLACEHOLDERS
-
-%dark-overlay {
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0; right: 0; bottom: 0; left: 0;
-    background: rgba(black, 0.6);
-    transition: background $default-time;
-  }
-}
-
-%default-modal-background {
-  color: #161718;
-  background: #e5e5e5;
-  padding: 20px;
-  border-top: 5px solid $yellow;
-  &:before {
-    position: absolute;
-    content: '';
-    width: 100%; height: 5px;
-    background: $yellowToOrangeGradient;
-    top: -5px; left: 0;
-  }
-}
-
-%uppercase {
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-%main-box-shadow {
-  box-shadow: 7px 7px 10px rgba(black, 0.6);
-}
-
-%safari-scrollbar-fix {
-  display: flex;
-  flex-direction: column;
-  > .scrollbar {
-    flex-grow: 2;
-  }
-}
-
-%scrollbar {
-  .scrollbar {
-    white-space: normal;
-    &__slider {
-      right: 0;
-      white-space: normal;
-    }
-    &__bar-vertical { right: 3px; }
-  }
+@mixin placeholder {
+  ::-webkit-input-placeholder { @content }
+  :-moz-placeholder { @content }
+  ::-moz-placeholder { @content }
+  :-ms-input-placeholder { @content }
 }

@@ -1,4 +1,4 @@
-import * as constants from '../constants/actionTypes'
+import * as constants from '../constants'
 import initialState from './initialState'
 import _ from 'lodash'
 

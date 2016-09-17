@@ -1,11 +1,6 @@
 @import 'variables';
 @import 'mixins';
-
-$white: hsl( 56, 16%, 98%);
-$blue:  hsl(199, 32%, 86%);
-$black: hsl( 10,  6%, 79%);
-$red:   hsl( 15, 43%, 77%);
-$green: hsl(140, 27%, 80%);
+@import 'normalize';
 
 html {
 	font-size: 1em;
