@@ -75,10 +75,10 @@ h1 { margin: 0; padding: 0; }
 	background-size: cover;
 	transition: opacity 1s;
 	&.hidden { opacity: 0; }
-	&.poison, &.commander {
+	&.poison-counter-visible, &.commander-counter-visible {
 		.counter--life { margin-top: -30px; }
 	}
-	&.poison.commander {
+	&.poison-counter-visible.commander-counter-visible {
 		.counter--poison {
 			transform: translateX(0);
 			left: 10%;

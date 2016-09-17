@@ -1,14 +1,14 @@
-import * as constants from '../constants'
+import * as actionTypes from '../constants'
 import initialState from './initialState'
 import _ from 'lodash'
 
-export default function gameStateReducer(state = initialState.gameState, action) {
+export default function gameStateReducer(state = initialState, action) {
   let newState = { ...state }
   let players = [ ...state.game.players ]
 
   switch (action.type) {
 
-    case constants.SHOW_COUNTERS: {
+    case actionTypes.SHOW_COUNTERS: {
       const counters = {...newState.counters}
       counters[action.counterType] = !counters[action.counterType]
       newState.counters = counters
@@ -34,14 +34,14 @@ export default function gameStateReducer(state = initialState.gameState, action)
       return newState
     }
 
-    case constants.TOGGLE_SCREEN: {
+    case actionTypes.TOGGLE_SCREEN: {
       if (action.screenName === 'dice') newState.diceScreen = !newState.diceScreen
       newState.settingsPanel = false
 
       return newState
     }
 
-    case constants.CHANGE_SETTING_PANEL_STATE: {
+    case actionTypes.CHANGE_SETTING_PANEL_STATE: {
       if (action.action === 'close') newState.settingsPanel = false
       if (action.action === 'open') newState.settingsPanel = true
       if (action.action === 'toggle') newState.settingsPanel = !newState.settingsPanel
@@ -49,7 +49,7 @@ export default function gameStateReducer(state = initialState.gameState, action)
       return newState
     }
 
-    case constants.RESET_GAME: {
+    case actionTypes.RESET_GAME: {
       players = _.map(newState.game.players, player => {
         let _player = player.copy()
         const clearData = { lifeBackup: 0, poisonCounters: 0, commanderDamage: 0 }
@@ -68,7 +68,7 @@ export default function gameStateReducer(state = initialState.gameState, action)
       return newState
     }
 
-    case constants.UPDATE_PLAYER: {
+    case actionTypes.UPDATE_PLAYER: {
       const playerIndex = _.findIndex(players, { number: action.playerNumber })
       const playerObject = players[playerIndex].copy()
       // If we're changing color of a new player, set his life as well
