@@ -5,7 +5,7 @@ import * as actions from '../actions'
 import _ from 'lodash'
 import cn from 'classnames'
 
-import { bindMethods } from '../utils'
+import { bindMethods, arraysEqual } from '../utils'
 
 import { SettingsPanel, PlayerComponent, DiceScreen } from './'
 
@@ -21,26 +21,53 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
+// var floatingEffect = {
+//   dSzer: window.screen.width,
+//   dWys: window.screen.height,
+//   effect: function(event) {
+//       var X = Math.floor(event.screenX),
+//           Y = Math.floor(event.screenY),
+//           rotateY = (X - floatingEffect.dSzer / 2) / 300,
+//           rotateX = -(Y - floatingEffect.dWys / 2 ) / 300;
+//       $app.css('transform', 'rotateY(' + rotateY + 'deg) rotateX(' + rotateX + 'deg)');
+//   },
+//   start: function() {
+//     $(document).on('mousemove', floatingEffect.effect);
+//   },
+//   stop: function() {
+//     $(document).off('mousemove', floatingEffect.effect);
+//   },
+//   check: function() {
+//     if ($(window).width() > 999) {
+//       floatingEffect.start();
+//     } else {
+//       floatingEffect.stop();
+//     }
+//   },
+//   init: function() {
+//     floatingEffect.check();
+//     $(window).on('resize', floatingEffect.check);
+//   }
+// };
+
 class HomePage extends Component {
   constructor(props, context) {
     super(props, context)
 
     bindMethods(this)
 
-    this.state = {
-      backgroundStyles: this.setBackgroundColor(props.gameState.game)
-    }
+    this.state = {}
   }
 
   componentWillReceiveProps (nextProps) {
-    const playersUpdated = this.props.gameState.game.players !== nextProps.gameState.game.players
-    if (playersUpdated) {
-      console.warn('HomePage -> componentWillReceiveProps', playersUpdated)
-      this.setState({ backgroundStyles: this.setBackgroundColor(nextProps.gameState.game) })
-    }
+    const prevColors = _.map(this.props.gameState.game.players, 'color')
+    const nextColors = _.map(nextProps.gameState.game.players, 'color')
+    const playerColorsUpdated = !arraysEqual(prevColors, nextColors)
+    // If players' colors have changed, update the background
+    if (playerColorsUpdated) this.setBackgroundColor(nextProps.gameState.game)
   }
 
-  setBackgroundColor (game) { // <- should only nedd game.players
+  setBackgroundColor (game) {
     console.warn('setBackgroundColor')
       const bottomBackgroundColors = {
       white : ['#FC9700', '#FFE292'/*, '#FFF4E4'*/].reverse(),
@@ -65,11 +92,13 @@ class HomePage extends Component {
     const bottomBackgroundColor = bottomBackgroundColors[bottomPlayerColor]
     const topBackgroundColor    = topBackgroundColors[topPlayerColor]
 
-    return {
-      backgroundImage    : 'url(img/tekstury/png1.png), linear-gradient(to bottom, rgba(255,255,255,0.25), rgba(255,255,255,0.25)), linear-gradient(to bottom, ' + topBackgroundColor + ', ' + bottomBackgroundColor + ')',
-      backgroundPosition : 'center, left top',
-      backgroundSize     : 'cover, auto'
-    }
+    this.setState({
+      backgroundStyles: {
+        backgroundImage    : 'url(img/tekstury/png1.png), linear-gradient(to bottom, rgba(255,255,255,0.25), rgba(255,255,255,0.25)), linear-gradient(to bottom, ' + topBackgroundColor + ', ' + bottomBackgroundColor + ')',
+        backgroundPosition : 'center, left top',
+        backgroundSize     : 'cover, auto'
+      }
+    })
   }
 
   render() {
@@ -83,8 +112,8 @@ class HomePage extends Component {
         id="main_window"
         className={cn(
           {
-            'poison': counters.poison, // TODO: refactor this
-            'commander': counters.commander
+            'poison-counter-visible': counters.poison,
+            'commander-counter-visible': counters.commander
           }
         )}
         style={this.state.backgroundStyles}  // TODO: refactor this, move to shouldUpdate

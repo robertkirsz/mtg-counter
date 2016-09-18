@@ -72,8 +72,7 @@ export default function gameStateReducer(state = initialState, action) {
       const playerIndex = _.findIndex(players, { number: action.playerNumber })
       const playerObject = players[playerIndex].copy()
       // If we're changing color of a new player, set his life as well
-      if (!playerObject.color && action.dataToUpdate.color && playerObject.life === undefined)
-        action.dataToUpdate.life = 20
+      if (!playerObject.color && action.dataToUpdate.color && playerObject.life === undefined) action.dataToUpdate.life = 20
       playerObject.update(action.dataToUpdate)
 
       newState = {
