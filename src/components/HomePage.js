@@ -157,7 +157,8 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   actions: PropTypes.object.isRequired,
-  gameState: PropTypes.object.isRequired
+  gameState: PropTypes.object.isRequired,
+  layout: PropTypes.object.isRequired
 }
 
 export default connect(
