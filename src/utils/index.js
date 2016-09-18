@@ -4,7 +4,7 @@ export const ascendingBy = (key) => (a, b) => a[key] < b[key] ? -1 : a[key] > b[
 
 export const descendingBy = (key) => (a, b) => a[key] < b[key] ? 1 : a[key] > b[key] ? -1 : 0
 
-// Returns random number from the min - max range. Completely random
+// Returns random number from the min - max range
 export const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }

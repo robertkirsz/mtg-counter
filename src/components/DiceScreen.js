@@ -1,25 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import cn from 'classnames'
 
-// Get random number from 1 to 'x'
-const randomNumber = x => {
-  console.log('RAND')
-  return Math.floor((Math.random() * x) + 1)
-}
+import { getRandomInt } from '../utils'
 
-const Die = ({ number, className }) => {
-  return <div className={cn('die', className)}>{number}</div>
-}
-
-Die.propTypes = {
-  number: PropTypes.number,
-  className: PropTypes.string
-}
-
-Die.defaultProps = {
-  number: 0,
-  className: ''
-}
+import { Die } from './'
 
 class DiceScreen extends Component {
   constructor(props, context) {
@@ -33,22 +17,26 @@ class DiceScreen extends Component {
 
   componentWillReceiveProps (nextProps) {
     // Roll the dice when this page is being shown
-    if (this.props.hideScreen && !nextProps.hideScreen) {
-      this.setState({
-        player1Number: randomNumber(6),
-        player2Number: randomNumber(6)
-      })
+    if (this.props.hidden && !nextProps.hidden) {
+      const newState = { ...this.state }
+
+      do {
+        newState.player1Number = getRandomInt(1, 6)
+        newState.player2Number = getRandomInt(1, 6)
+      } while (newState.player1Number === newState.player2Number)
+
+      this.setState(newState)
     }
   }
 
   render () {
-    const { hideScreen, actions } = this.props
+    const { hidden, actions } = this.props
     const { player1Number, player2Number } = this.state
 
     return (
       <div
         id="dice"
-        className={cn('layer', { hidden: hideScreen })}
+        className={cn('layer', { hidden })}
         onClick={() => { actions.toggleScreen('dice') }}
       >
         <Die className="player_2" number={player2Number} />

@@ -116,10 +116,10 @@ class HomePage extends Component {
             'commander-counter-visible': counters.commander
           }
         )}
-        style={this.state.backgroundStyles}  // TODO: refactor this, move to shouldUpdate
+        style={this.state.backgroundStyles}
       >
         <DiceScreen
-          hideScreen={!diceScreen}
+          hidden={!diceScreen}
           actions={actions}
         />
 
