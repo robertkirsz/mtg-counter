@@ -68,6 +68,10 @@ export default function gameStateReducer(state = initialState, action) {
       return newState
     }
 
+    case actionTypes.NEW_GAME: {
+      return initialState
+    }
+
     case actionTypes.UPDATE_PLAYER: {
       const playerIndex = _.findIndex(players, { number: action.playerNumber })
       const playerObject = players[playerIndex].copy()

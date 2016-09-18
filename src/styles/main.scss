@@ -126,6 +126,7 @@ h1 { margin: 0; padding: 0; }
 	backface-visibility: hidden;
 	&.hidden {
 		transform: rotateY(-180deg);
+		opacity: 0;
 		pointer-events: none;
 	}
 	.player {

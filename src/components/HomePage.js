@@ -9,9 +9,10 @@ import { bindMethods, arraysEqual } from '../utils'
 
 import { SettingsPanel, PlayerComponent, DiceScreen } from './'
 
-function mapStateToProps({ gameState }) {
+function mapStateToProps({ gameState, layout }) {
   return {
-    gameState
+    gameState,
+    layout
   }
 }
 
@@ -104,8 +105,18 @@ class HomePage extends Component {
   render() {
     const {
       gameState: { counters, game, diceScreen },
+      layout: { mainClassNames },
       actions
     } = this.props;
+
+    console.warn('mainClassNames', mainClassNames)
+
+    const foo = cn(
+      mainClassNames,
+      { hidden: diceScreen }
+    )
+
+    console.log('foo', foo);
 
     return (
       <div
@@ -125,7 +136,10 @@ class HomePage extends Component {
 
         <SettingsPanel hidden={diceScreen} />
 
-        <div id="counters" className={cn({ hidden: diceScreen })}>
+        <div
+          id="counters"
+          className={foo}
+        >
           {
             game.players.map(player => (
               <PlayerComponent

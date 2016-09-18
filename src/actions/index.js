@@ -41,9 +41,22 @@ export function resetGame() {
   }
 }
 
+export function newGame() {
+  return {
+    type: actionTypes.NEW_GAME
+  }
+}
+
 export function toggleScreen(screenName) {
   return {
     type: actionTypes.TOGGLE_SCREEN,
     screenName
+  }
+}
+
+export function changeMainClasses(classNames) {
+  return {
+    type: actionTypes.CHANGE_MAIN_CLASSES,
+    classNames
   }
 }

@@ -43,14 +43,8 @@ class SettingsPanel extends Component {
     const { actions, players } = this.props
     if (iconType === 'poison') actions.showCounters('poison')
     if (iconType === 'commander') actions.showCounters('commander')
-    if (iconType === 'reset') {
-      actions.resetGame()
-      actions.settingsPanel('close')
-    }
-    if (iconType === 'dice') {
-      actions.toggleScreen('dice')
-    }
-    if (iconType === 'changeColor') {
+    if (iconType === 'dice') actions.toggleScreen('dice')
+    if (iconType === 'change-color') {
       _.forEach(players, player => {
         actions.updatePlayer({ // TODO: Refactor to not use object but separate properties
           playerNumber: player.number,
@@ -60,6 +54,20 @@ class SettingsPanel extends Component {
         })
       })
       actions.settingsPanel('close')
+    }
+    if (iconType === 'reset') {
+      actions.resetGame()
+      actions.settingsPanel('close')
+    }
+    if (iconType === 'new-game') {
+      actions.settingsPanel('close')
+      actions.changeMainClasses('hidden')
+      setTimeout(() => {
+        actions.newGame()
+        setTimeout(() => {
+          actions.changeMainClasses('')
+        }, 300)
+      }, 300)
     }
   }
 
@@ -104,13 +112,18 @@ class SettingsPanel extends Component {
           />
           <span
             className="settings__icon fa fa-paint-brush"
-            onClick={() => { this.settingsPanelIconClick('changeColor'); }}
+            onClick={() => { this.settingsPanelIconClick('change-color'); }}
             title="Change color"
           />
           <span
             className="settings__icon fa fa-undo"
             onClick={() => { this.settingsPanelIconClick('reset'); }}
             title="Reset current game"
+          />
+          <span
+            className="settings__icon fa fa-file-o"
+            onClick={() => { this.settingsPanelIconClick('new-game'); }}
+            title="Start new game"
           />
         </div>
         <span className="fa fa-cog" onClick={this.cogIconClick} />
