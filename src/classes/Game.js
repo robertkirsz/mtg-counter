@@ -2,15 +2,13 @@ import _ from 'lodash'
 
 export default class Game {
   constructor (game) {
-    this.update(game);
+    this.update(game)
   }
 
   update (raw) {
-    if (raw.players)   this.players   = raw.players;
-    if (raw.startDate) this.startDate = raw.startDate;
-    if (raw.endDate)   this.endDate   = raw.endDate;
-
-    // localStorage.setItem('unitPreference', this.unitPreference);
+    if (raw.players)   this.players   = raw.players  // TODO: zrobic zeby game sam tworzył sobie new Player
+    if (raw.startDate) this.startDate = raw.startDate
+    if (raw.endDate)   this.endDate   = raw.endDate
   }
 
   // Updates
@@ -25,6 +23,6 @@ export default class Game {
   }
 
   copy () {
-    return new Game(this);
+    return new Game(this)
   }
 }

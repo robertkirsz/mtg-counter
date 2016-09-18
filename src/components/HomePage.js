@@ -60,6 +60,12 @@ class HomePage extends Component {
     this.state = {}
   }
 
+  componentWillMount () {
+    // Check if tehre is some player data in the store already (retrieved from Local Storage)
+    const playerColors = _.map(this.props.gameState.game.players, 'color')
+    if (_.some(playerColors, String)) this.setBackgroundColor(this.props.gameState.game)
+  }
+
   componentWillReceiveProps (nextProps) {
     const prevColors = _.map(this.props.gameState.game.players, 'color')
     const nextColors = _.map(nextProps.gameState.game.players, 'color')
@@ -109,15 +115,6 @@ class HomePage extends Component {
       actions
     } = this.props;
 
-    console.warn('mainClassNames', mainClassNames)
-
-    const foo = cn(
-      mainClassNames,
-      { hidden: diceScreen }
-    )
-
-    console.log('foo', foo);
-
     return (
       <div
         id="main_window"
@@ -138,7 +135,10 @@ class HomePage extends Component {
 
         <div
           id="counters"
-          className={foo}
+          className={cn(
+            mainClassNames,
+            { hidden: diceScreen }
+          )}
         >
           {
             game.players.map(player => (

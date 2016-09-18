@@ -2,7 +2,27 @@ import * as actionTypes from '../constants'
 import initialState from './initialState'
 import _ from 'lodash'
 
-export default function gameStateReducer(state = initialState, action) {
+import { saveGameState } from '../utils'
+
+import { Game, Player } from '../classes'
+
+// Check Local Storage and apply saved game state if found
+let retrievedGameState = JSON.parse(localStorage.getItem('MtgCounterGameState'))
+if (retrievedGameState) {
+  retrievedGameState = {
+    ...retrievedGameState,
+    game: new Game({
+      players: [
+        new Player(retrievedGameState.game.players[0]), // TODO: zrobic zeby game sam tworzył sobie new Player
+        new Player(retrievedGameState.game.players[1])
+      ]
+    }),
+    settingsPanel: false,
+    diceScreen: false
+  }
+}
+
+export default function gameStateReducer(state = retrievedGameState || initialState, action) {
   let newState = { ...state }
   let players = [ ...state.game.players ]
 
@@ -31,7 +51,7 @@ export default function gameStateReducer(state = initialState, action) {
         }
       }
 
-      return newState
+      return saveGameState(newState)
     }
 
     case actionTypes.TOGGLE_SCREEN: {
@@ -65,11 +85,11 @@ export default function gameStateReducer(state = initialState, action) {
         }
       }
 
-      return newState
+      return saveGameState(newState)
     }
 
     case actionTypes.NEW_GAME: {
-      return initialState
+      return saveGameState(initialState)
     }
 
     case actionTypes.UPDATE_PLAYER: {
@@ -91,7 +111,7 @@ export default function gameStateReducer(state = initialState, action) {
         }
       }
 
-      return newState
+      return saveGameState(newState)
     }
 
     default: {

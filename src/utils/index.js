@@ -134,3 +134,8 @@ export const arraysEqual = (a, b) => {
 
   return true
 }
+
+export const saveGameState = (state) => {
+  localStorage.setItem('MtgCounterGameState', JSON.stringify(state))
+  return state
+}

@@ -16,8 +16,6 @@ export default class Player {
     if (typeof raw.commanderDamage === 'number')
       this.commanderDamage = raw.commanderDamage
     if (raw.lifeBackup) this.lifeBackup = raw.lifeBackup
-
-    // localStorage.setItem('unitPreference', this.unitPreference)
   }
 
   isDefined () {
