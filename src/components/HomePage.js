@@ -43,20 +43,12 @@ class HomePage extends Component {
     if (_.some(playerColors, String)) this.setBackgroundColor(this.props.gameState.game)
   }
 
-  componentDidMount () {
-    document.addEventListener('click', this.clickEffect)
-  }
-
   componentWillReceiveProps (nextProps) {
     const prevColors = _.map(this.props.gameState.game.players, 'color')
     const nextColors = _.map(nextProps.gameState.game.players, 'color')
     const playerColorsUpdated = !arraysEqual(prevColors, nextColors)
     // If players' colors have changed, update the background
     if (playerColorsUpdated) this.setBackgroundColor(nextProps.gameState.game)
-  }
-
-  componentWillUnmount () {
-    document.removeEventListener('click', this.clickEffect)
   }
 
   clickEffect (e) {
@@ -137,6 +129,7 @@ class HomePage extends Component {
           }
         )}
         style={this.state.styles}
+        onClick={this.clickEffect}
       >
         <DiceScreen
           hidden={!diceScreen}

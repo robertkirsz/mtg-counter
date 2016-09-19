@@ -303,6 +303,7 @@ h1 { margin: 0; padding: 0; }
 			left: -28px;
 			width: 418px; height: 812px;
 			background: url(../img/bgphone.png) no-repeat;
+			pointer-events: none;
 			z-index: 1; } }
 	.settings {
 		&.opened { background-color: rgba(black, 0.1); }
