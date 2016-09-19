@@ -73,7 +73,7 @@ h1 { margin: 0; padding: 0; }
 	flex-flow: column nowrap;
 	background: url(../img/tekstury/png1.png) no-repeat center;
 	background-size: cover;
-	transition: opacity 1s;
+	transition: transform 0.1s ease-in;
 	&.hidden { opacity: 0; }
 	&.poison-counter-visible, &.commander-counter-visible {
 		.counter--life { margin-top: -30px; }

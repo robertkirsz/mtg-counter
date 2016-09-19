@@ -22,48 +22,29 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-// var floatingEffect = {
-//   dSzer: window.screen.width,
-//   dWys: window.screen.height,
-//   effect: function(event) {
-//       var X = Math.floor(event.screenX),
-//           Y = Math.floor(event.screenY),
-//           rotateY = (X - floatingEffect.dSzer / 2) / 300,
-//           rotateX = -(Y - floatingEffect.dWys / 2 ) / 300;
-//       $app.css('transform', 'rotateY(' + rotateY + 'deg) rotateX(' + rotateX + 'deg)');
-//   },
-//   start: function() {
-//     $(document).on('mousemove', floatingEffect.effect);
-//   },
-//   stop: function() {
-//     $(document).off('mousemove', floatingEffect.effect);
-//   },
-//   check: function() {
-//     if ($(window).width() > 999) {
-//       floatingEffect.start();
-//     } else {
-//       floatingEffect.stop();
-//     }
-//   },
-//   init: function() {
-//     floatingEffect.check();
-//     $(window).on('resize', floatingEffect.check);
-//   }
-// };
-
 class HomePage extends Component {
   constructor(props, context) {
     super(props, context)
 
     bindMethods(this)
 
-    this.state = {}
+    this.state = {
+      styles: {
+        backgroundImage    : 'url(img/tekstury/png1.png), linear-gradient(to bottom, rgba(255,255,255,0.25), rgba(255,255,255,0.25)), linear-gradient(to bottom, hsl(  0,  0%, 100%), hsl(  0,  0%, 100%))',
+        backgroundPosition : 'center, left top',
+        backgroundSize     : 'cover, auto'
+      }
+    }
   }
 
   componentWillMount () {
-    // Check if tehre is some player data in the store already (retrieved from Local Storage)
+    // Check if there is some player data in the store already (retrieved from Local Storage)
     const playerColors = _.map(this.props.gameState.game.players, 'color')
     if (_.some(playerColors, String)) this.setBackgroundColor(this.props.gameState.game)
+  }
+
+  componentDidMount () {
+    document.addEventListener('click', this.clickEffect)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -74,8 +55,38 @@ class HomePage extends Component {
     if (playerColorsUpdated) this.setBackgroundColor(nextProps.gameState.game)
   }
 
+  componentWillUnmount () {
+    document.removeEventListener('click', this.clickEffect)
+  }
+
+  clickEffect (e) {
+    if (window.innerWidth > 1000) {
+      this.clickEffectAnimation(e)
+      setTimeout(() => {
+        this.setState({
+          styles: {
+            ...this.state.styles,
+            transform: 'rotateY(0deg) rotateX(0deg)'
+          }
+        })
+      }, 100)
+    }
+  }
+
+  clickEffectAnimation (e) {
+    const X = Math.floor(e.screenX)
+    const Y = Math.floor(e.screenY)
+    const rotateY = (X - window.screen.width / 2) / 300
+    const rotateX = -(Y - window.screen.height / 2) / 300
+    this.setState({
+      styles: {
+        ...this.state.styles,
+        transform: 'rotateY(' + rotateY + 'deg) rotateX(' + rotateX + 'deg)'
+      }
+    })
+  }
+
   setBackgroundColor (game) {
-    console.warn('setBackgroundColor')
       const bottomBackgroundColors = {
       white : ['#FC9700', '#FFE292'/*, '#FFF4E4'*/].reverse(),
       blue  : ['#004394', '#009AD0'/*, '#E0F2FF'*/].reverse(),
@@ -100,7 +111,8 @@ class HomePage extends Component {
     const topBackgroundColor    = topBackgroundColors[topPlayerColor]
 
     this.setState({
-      backgroundStyles: {
+      styles: {
+        ...this.state.styles,
         backgroundImage    : 'url(img/tekstury/png1.png), linear-gradient(to bottom, rgba(255,255,255,0.25), rgba(255,255,255,0.25)), linear-gradient(to bottom, ' + topBackgroundColor + ', ' + bottomBackgroundColor + ')',
         backgroundPosition : 'center, left top',
         backgroundSize     : 'cover, auto'
@@ -113,7 +125,7 @@ class HomePage extends Component {
       gameState: { counters, game, diceScreen },
       layout: { mainClassNames },
       actions
-    } = this.props;
+    } = this.props
 
     return (
       <div
@@ -124,7 +136,7 @@ class HomePage extends Component {
             'commander-counter-visible': counters.commander
           }
         )}
-        style={this.state.backgroundStyles}
+        style={this.state.styles}
       >
         <DiceScreen
           hidden={!diceScreen}
