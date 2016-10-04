@@ -1,5 +1,3 @@
-import * as actionTypes from '../constants'
-
 // example of a thunk using the redux-thunk middleware
 // export function saveFuelSavings(settings) {
 //   return function (dispatch) {
@@ -13,50 +11,36 @@ import * as actionTypes from '../constants'
 //   }
 // }
 
-export function settingsPanel(action) {
-  return {
-    type: actionTypes.CHANGE_SETTING_PANEL_STATE,
-    action
-  }
-}
+export const settingsPanel = (action) => ({
+  type: 'CHANGE_SETTING_PANEL_STATE',
+  action
+})
 
-export function showCounters(counterType) {
-  return {
-    type: actionTypes.SHOW_COUNTERS,
-    counterType
-  }
-}
+export const showCounters = (counterType) => ({
+  type: 'SHOW_COUNTERS',
+  counterType
+})
 
-export function updatePlayer({ playerNumber, dataToUpdate }) {
-  return {
-    type: actionTypes.UPDATE_PLAYER,
-    playerNumber,
-    dataToUpdate
-  }
-}
+export const updatePlayer = ({ playerNumber, dataToUpdate }) => ({
+  type: 'UPDATE_PLAYER',
+  playerNumber,
+  dataToUpdate
+})
 
-export function resetGame() {
-  return {
-    type: actionTypes.RESET_GAME
-  }
-}
+export const resetGame = () => ({
+    type: 'RESET_GAME'
+})
 
-export function newGame() {
-  return {
-    type: actionTypes.NEW_GAME
-  }
-}
+export const newGame = () => ({
+  type: 'NEW_GAME'
+})
 
-export function toggleScreen(screenName) {
-  return {
-    type: actionTypes.TOGGLE_SCREEN,
-    screenName
-  }
-}
+export const toggleScreen = (screenName) => ({
+  type: 'TOGGLE_SCREEN',
+  screenName
+})
 
-export function changeMainClasses(classNames) {
-  return {
-    type: actionTypes.CHANGE_MAIN_CLASSES,
-    classNames
-  }
-}
+export const changeMainClasses = (classNames) => ({
+  type: 'CHANGE_MAIN_CLASSES',
+  classNames
+})

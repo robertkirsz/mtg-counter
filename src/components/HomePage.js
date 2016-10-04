@@ -4,25 +4,22 @@ import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
 import _ from 'lodash'
 import cn from 'classnames'
-
 import { bindMethods, arraysEqual } from '../utils'
-
 import { SettingsPanel, PlayerComponent, DiceScreen } from './'
 
-function mapStateToProps({ gameState, layout }) {
-  return {
-    gameState,
-    layout
-  }
-}
+const mapStateToProps = ({ gameState, layout }) => ({ gameState, layout })
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(actions, dispatch)
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions, dispatch)
+})
 
 class HomePage extends Component {
+  static propTypes = {
+    actions: PropTypes.object.isRequired,
+    gameState: PropTypes.object.isRequired,
+    layout: PropTypes.object.isRequired
+  }
+
   constructor(props, context) {
     super(props, context)
 
@@ -160,13 +157,4 @@ class HomePage extends Component {
   }
 }
 
-HomePage.propTypes = {
-  actions: PropTypes.object.isRequired,
-  gameState: PropTypes.object.isRequired,
-  layout: PropTypes.object.isRequired
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(HomePage)
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)

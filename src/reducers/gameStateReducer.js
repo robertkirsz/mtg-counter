@@ -1,34 +1,32 @@
-import * as actionTypes from '../constants'
-import initialState from './initialState'
 import _ from 'lodash'
-
-import { saveGameState } from '../utils'
-
+import { saveGameState, loadGameState } from '../utils'
 import { Game, Player } from '../classes'
 
-// Check Local Storage and apply saved game state if found
-let retrievedGameState = JSON.parse(localStorage.getItem('MtgCounterGameState'))
-if (retrievedGameState) {
-  retrievedGameState = {
-    ...retrievedGameState,
-    game: new Game({
-      players: [
-        new Player(retrievedGameState.game.players[0]), // TODO: zrobic zeby game sam tworzył sobie new Player
-        new Player(retrievedGameState.game.players[1])
-      ]
-    }),
-    settingsPanel: false,
-    diceScreen: false
+// This is the initial state of the application
+// If no saved state is going to be found via 'loadGameState()', this one will be used
+const initialState = {
+  game: new Game({
+    players: [
+      new Player({ number: 2 }),
+      new Player({ number: 1 })
+    ]
+  }),
+  settingsPanel: false,
+  diceScreen: false,
+  counters: {
+    life: false,
+    poison: false,
+    commander: false
   }
 }
 
-export default function gameStateReducer(state = retrievedGameState || initialState, action) {
+export default function gameStateReducer(state = loadGameState() || initialState, action) {
   let newState = { ...state }
   let players = [ ...state.game.players ]
 
   switch (action.type) {
 
-    case actionTypes.SHOW_COUNTERS: {
+    case 'SHOW_COUNTERS': {
       const counters = {...newState.counters}
       counters[action.counterType] = !counters[action.counterType]
       newState.counters = counters
@@ -54,14 +52,14 @@ export default function gameStateReducer(state = retrievedGameState || initialSt
       return saveGameState(newState)
     }
 
-    case actionTypes.TOGGLE_SCREEN: {
+    case 'TOGGLE_SCREEN': {
       if (action.screenName === 'dice') newState.diceScreen = !newState.diceScreen
       newState.settingsPanel = false
 
       return newState
     }
 
-    case actionTypes.CHANGE_SETTING_PANEL_STATE: {
+    case 'CHANGE_SETTING_PANEL_STATE': {
       if (action.action === 'close') newState.settingsPanel = false
       if (action.action === 'open') newState.settingsPanel = true
       if (action.action === 'toggle') newState.settingsPanel = !newState.settingsPanel
@@ -69,7 +67,7 @@ export default function gameStateReducer(state = retrievedGameState || initialSt
       return newState
     }
 
-    case actionTypes.RESET_GAME: {
+    case 'RESET_GAME': {
       players = _.map(newState.game.players, player => {
         let _player = player.copy()
         const clearData = { lifeBackup: 0, poisonCounters: 0, commanderDamage: 0 }
@@ -88,11 +86,11 @@ export default function gameStateReducer(state = retrievedGameState || initialSt
       return saveGameState(newState)
     }
 
-    case actionTypes.NEW_GAME: {
+    case 'NEW_GAME': {
       return saveGameState(initialState)
     }
 
-    case actionTypes.UPDATE_PLAYER: {
+    case 'UPDATE_PLAYER': {
       const playerIndex = _.findIndex(players, { number: action.playerNumber })
       const playerObject = players[playerIndex].copy()
       // If we're changing color of a new player, set his life as well

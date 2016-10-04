@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { Game, Player } from '../classes'
 
 export const ascendingBy = (key) => (a, b) => a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0
 
@@ -135,7 +136,30 @@ export const arraysEqual = (a, b) => {
   return true
 }
 
+// Saves game state into the Local Storage
 export const saveGameState = (state) => {
   localStorage.setItem('MtgCounterGameState', JSON.stringify(state))
   return state
+}
+
+// Loads game state from the Local Storage
+export const loadGameState = () => {
+  // Check Local Storage for saved game state
+  let savedGameState = JSON.parse(localStorage.getItem('MtgCounterGameState'))
+  // Convert objects to classes and reset some of the settings
+  if (savedGameState) {
+    savedGameState = {
+      ...savedGameState,
+      game: new Game({
+        players: [
+          new Player(savedGameState.game.players[0]), // TODO: zrobic zeby game sam tworzył sobie new Player
+          new Player(savedGameState.game.players[1])
+        ]
+      }),
+      settingsPanel: false,
+      diceScreen: false
+    }
+  }
+
+  return savedGameState
 }

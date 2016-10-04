@@ -1,12 +1,13 @@
-import * as actionTypes from '../constants'
-import initialLayoutState from './initialLayoutState'
+const initialState = {
+  mainClassNames: ''
+}
 
-export default function gameStateReducer(state = initialLayoutState, action) {
+export default function gameStateReducer(state = initialState, action) {
   let newState = { ...state }
 
   switch (action.type) {
 
-    case actionTypes.CHANGE_MAIN_CLASSES: {
+    case 'CHANGE_MAIN_CLASSES': {
       newState.mainClassNames = action.classNames
 
       return newState
