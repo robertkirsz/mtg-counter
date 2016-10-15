@@ -10,64 +10,6 @@ export const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-// Returns random date object
-export const getRandomDate = (start, end, startHour, endHour) => {
-  const date = new Date(+start + Math.random() * (end - start))
-  const hour = startHour + Math.random() * (endHour - startHour) | 0
-  date.setHours(hour)
-  return date
-}
-
-// Finds element by it's ID in an array and returns it's index and contents
-export const getObject = (elements, elementId, searchBy = 'id') => {
-  const elementIndex = _.findIndex(elements, element => element[searchBy] === elementId)
-
-  return {
-    index: elementIndex,
-    data: elements[elementIndex]
-  }
-}
-
-// recursively deletes all object props which are empty objects
-export const deleteEmptyObjects = (obj = {}) => {
-  const output = Array.isArray(obj) ? obj.slice() : Object.assign({}, obj)
-  if (_.isEmpty(obj)) {
-    return obj
-  } else {
-    for (let key in obj) {
-      if (typeof obj[key] === 'object') {
-        if (_.isEmpty(obj[key])) {
-          delete output[key]
-        } else {
-          output[key] = deleteEmptyObjects(output[key])
-        }
-      }
-    }
-  }
-  return output
-}
-
-// recursively deletes all the props/keys specified from object
-// As 'keys' accepts array of strings or string
-export const removeKeys = (obj = {}, keys = []) => {
-  keys = Array.isArray(keys) ? keys : [keys]
-  keys.forEach((key) => {
-    if (obj) {
-      delete obj[key]
-      for (const prop in obj) {
-        if (Array.isArray(obj[prop])) {
-          obj[prop].forEach((arrayItem) => {
-            removeKeys(arrayItem, [key])
-          })
-        } else if (typeof obj[prop] === 'object') {
-          removeKeys(obj[prop], [key])
-        }
-      }
-    }
-  })
-  return obj
-}
-
 // checks if one node is contained in another
 export const isContainedIn = (target, container) => {
   let node = target

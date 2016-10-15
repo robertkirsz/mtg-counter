@@ -7,8 +7,8 @@ import { Game, Player } from '../classes'
 const initialState = {
   game: new Game({
     players: [
-      new Player({ number: 2 }),
-      new Player({ number: 1 })
+      new Player({ number: 1 }),
+      new Player({ number: 2 })
     ]
   }),
   settingsPanel: false,

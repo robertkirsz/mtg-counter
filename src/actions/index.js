@@ -28,7 +28,7 @@ export const updatePlayer = ({ playerNumber, dataToUpdate }) => ({
 })
 
 export const resetGame = () => ({
-    type: 'RESET_GAME'
+  type: 'RESET_GAME'
 })
 
 export const newGame = () => ({
