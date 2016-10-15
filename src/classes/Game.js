@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { Player } from './'
 
 export default class Game {
   constructor (game) {
@@ -6,7 +7,7 @@ export default class Game {
   }
 
   update (raw) {
-    if (raw.players)   this.players   = raw.players  // TODO: zrobic zeby game sam tworzył sobie new Player
+    if (raw.players)   this.players   = _.map(raw.players, player => new Player(player))
     if (raw.startDate) this.startDate = raw.startDate
     if (raw.endDate)   this.endDate   = raw.endDate
   }

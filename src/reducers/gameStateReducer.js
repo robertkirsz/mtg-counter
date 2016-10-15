@@ -1,15 +1,12 @@
 import _ from 'lodash'
 import { saveGameState, loadGameState } from '../utils'
-import { Game, Player } from '../classes'
+import { Game } from '../classes'
 
 // This is the initial state of the application
 // If no saved state is going to be found via 'loadGameState()', this one will be used
 const initialState = {
   game: new Game({
-    players: [
-      new Player({ number: 1 }),
-      new Player({ number: 2 })
-    ]
+    players: [{ number: 1 }, { number: 2 }]
   }),
   counters: {
     life: false,

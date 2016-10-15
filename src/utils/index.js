@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { Game, Player } from '../classes'
+import { Game } from '../classes'
 
 export const ascendingBy = (key) => (a, b) => a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0
 
@@ -94,8 +94,8 @@ export const loadGameState = () => {
       ...savedGameState,
       game: new Game({
         players: [
-          new Player(savedGameState.game.players[0]), // TODO: zrobic zeby game sam tworzył sobie new Player
-          new Player(savedGameState.game.players[1])
+          savedGameState.game.players[0],
+          savedGameState.game.players[1]
         ]
       }),
       settingsPanel: false,
