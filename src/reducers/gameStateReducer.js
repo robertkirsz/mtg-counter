@@ -18,7 +18,7 @@ const initialState = {
   }
 }
 
-export default function gameStateReducer(state = loadGameState() || initialState, action) {
+const gameStateReducer = (state = loadGameState() || initialState, action) => {
   let newState = { ...state }
   let players = [ ...state.game.players ]
 
@@ -100,3 +100,5 @@ export default function gameStateReducer(state = loadGameState() || initialState
     }
   }
 }
+
+export default gameStateReducer

@@ -1,11 +1,12 @@
 const initialState = {
   mainClassNames: '', // TODO: think I need to rethink this one
+  // Visibility state of various screens and panels
   settingsPanel: false, // Stripe with cog icon
-  settingsScreen: false, // Full settings screen
+  settingsScreen: false, // Full settings screen (TODO: not implemented yet)
   diceScreen: false, // Dice screen
 }
 
-export default function gameStateReducer(state = initialState, action) {
+const layoutReducer = (state = initialState, action) => {
   let newState = { ...state }
 
   switch (action.type) {
@@ -32,3 +33,5 @@ export default function gameStateReducer(state = initialState, action) {
     }
   }
 }
+
+export default layoutReducer
