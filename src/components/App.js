@@ -111,8 +111,8 @@ class App extends Component {
 
   render() {
     const {
-      gameState: { counters, game, diceScreen },
-      layout: { mainClassNames },
+      gameState: { counters, game },
+      layout: { mainClassNames, diceScreen },
       actions
     } = this.props
 

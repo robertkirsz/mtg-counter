@@ -11,8 +11,6 @@ const initialState = {
       new Player({ number: 2 })
     ]
   }),
-  settingsPanel: false,
-  diceScreen: false,
   counters: {
     life: false,
     poison: false,
@@ -50,21 +48,6 @@ export default function gameStateReducer(state = loadGameState() || initialState
       }
 
       return saveGameState(newState)
-    }
-
-    case 'TOGGLE_SCREEN': {
-      if (action.screenName === 'dice') newState.diceScreen = !newState.diceScreen
-      newState.settingsPanel = false
-
-      return newState
-    }
-
-    case 'CHANGE_SETTING_PANEL_STATE': {
-      if (action.action === 'close') newState.settingsPanel = false
-      if (action.action === 'open') newState.settingsPanel = true
-      if (action.action === 'toggle') newState.settingsPanel = !newState.settingsPanel
-
-      return newState
     }
 
     case 'RESET_GAME': {

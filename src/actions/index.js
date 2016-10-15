@@ -1,19 +1,7 @@
-// example of a thunk using the redux-thunk middleware
-// export function saveFuelSavings(settings) {
-//   return function (dispatch) {
-//     // thunks allow for pre-processing actions, calling apis, and dispatching multiple actions
-//     // in this case at this point we could call a service that would persist the fuel savings
-//     return dispatch({
-//       type: actionTypes.SAVE_FUEL_SAVINGS,
-//       dateModified: dateHelper.getFormattedDateTime(),
-//       settings
-//     })
-//   }
-// }
-
-export const settingsPanel = (action) => ({
-  type: 'CHANGE_SETTING_PANEL_STATE',
-  action
+export const changeScreen = (screenName, actionType) => ({
+  type: 'CHANGE_SCREEN',
+  screenName,
+  actionType
 })
 
 export const showCounters = (counterType) => ({
@@ -33,11 +21,6 @@ export const resetGame = () => ({
 
 export const newGame = () => ({
   type: 'NEW_GAME'
-})
-
-export const toggleScreen = (screenName) => ({
-  type: 'TOGGLE_SCREEN',
-  screenName
 })
 
 export const changeMainClasses = (classNames) => ({

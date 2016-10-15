@@ -37,7 +37,7 @@ class DiceScreen extends Component {
       <div
         id="dice"
         className={cn('layer', { hidden })}
-        onClick={() => { actions.toggleScreen('dice') }}
+        onClick={() => { actions.changeScreen('diceScreen', 'close') }}
       >
         <Die className="player_2" number={player2Number} />
         <Die className="player_1" number={player1Number} />

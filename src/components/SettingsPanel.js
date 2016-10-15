@@ -8,9 +8,9 @@ import Swipeable from 'react-swipeable'
 
 import { bindMethods } from '../utils'
 
-function mapStateToProps({ gameState }) {
+function mapStateToProps({ gameState, layout }) {
   return {
-    settingsPanel: gameState.settingsPanel,
+    settingsPanel: layout.settingsPanel,
     players: gameState.game.players
   }
 }
@@ -41,7 +41,7 @@ class SettingsPanel extends Component {
   // Handles clicking on the cog icon
   cogIconClick () {
     if (debugMode) console.warn('SettingsPanel -> cogIconClick()')
-    this.props.actions.settingsPanel('toggle')
+    this.props.actions.changeScreen('settingsPanel', 'toggle')
   }
 
   // Handles clicking on the settings icons
@@ -50,7 +50,7 @@ class SettingsPanel extends Component {
     const { actions, players } = this.props
     if (iconType === 'poison') actions.showCounters('poison')
     if (iconType === 'commander') actions.showCounters('commander')
-    if (iconType === 'dice') actions.toggleScreen('dice')
+    if (iconType === 'dice') actions.changeScreen('diceScreen', 'open')
     if (iconType === 'change-color') {
       _.forEach(players, player => {
         actions.updatePlayer({ // TODO: Refactor to not use object but separate properties
@@ -60,15 +60,15 @@ class SettingsPanel extends Component {
           }
         })
       })
-      actions.settingsPanel('close')
+      this.closeSettingsPanel()
     }
     if (iconType === 'reset') {
       actions.resetGame()
-      actions.settingsPanel('close')
+      this.closeSettingsPanel()
     }
     if (iconType === 'new-game') {
-      actions.settingsPanel('close')
-      actions.changeMainClasses('hidden')
+      this.closeSettingsPanel()
+      actions.changeMainClasses('hidden') // TODO: rethink this
       setTimeout(() => {
         actions.newGame()
         setTimeout(() => {
@@ -88,7 +88,7 @@ class SettingsPanel extends Component {
   // Sends action to close settings panel
   closeSettingsPanel () {
     if (debugMode) console.warn('SettingsPanel -> closeSettingsPanel()')
-    this.props.actions.settingsPanel('close')
+    this.props.actions.changeScreen('settingsPanel', 'close')
   }
 
   render () {
