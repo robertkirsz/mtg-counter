@@ -138,10 +138,12 @@ class SettingsPanel extends Component {
             title="Reset current game"
           />
           <span
-            className="settings__icon fa fa-file-o"
+            className="settings__icon new-game"
             onClick={() => { this.settingsPanelIconClick('new-game') }}
             title="Start new game"
-          />
+          >
+            New game
+          </span>
         </div>
         <span className="fa fa-cog" onClick={this.cogIconClick} />
       </Swipeable>

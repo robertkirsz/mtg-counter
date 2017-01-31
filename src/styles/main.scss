@@ -273,6 +273,18 @@ h1 { margin: 0; padding: 0; }
       background-image: url(../img/ikony/dice.svg);
       width: 35px;
 		}
+		&.new-game {
+			position: relative;
+			bottom: 2px;
+			max-width: 45px;
+			border: 2px solid;
+			border-radius: 5px;
+			font-size: 0.3em;
+			line-height: 1.4;
+			font-weight: 600;
+			text-align: center;
+			text-transform: uppercase;
+		}
 	}
 	.fa-cog {	transition: all 0.3s; }
 	.fa, .settings__icon {
