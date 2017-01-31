@@ -71,7 +71,7 @@ h1 { margin: 0; padding: 0; }
 #main_window {
 	display: flex;
 	flex-flow: column nowrap;
-	background: url(../img/tekstury/png1.png) no-repeat center;
+	background: url(img/tekstury/png1.png) no-repeat center;
 	background-size: cover;
 	transition: transform 0.1s ease-in;
 	&.hidden { opacity: 0; }
@@ -102,7 +102,7 @@ h1 { margin: 0; padding: 0; }
 	left: 50%;
 	transform: translateX(-50%);
 	.count:after {
-		background-image: url(../img/ikony/poison.png);
+		background-image: url(img/ikony/poison.svg);
 		background-position: 50% 50%;
 	}
 }
@@ -110,7 +110,7 @@ h1 { margin: 0; padding: 0; }
 	right: 50%;
 	transform: translateX(50%);
 	.count:after {
-		background-image: url(../img/ikony/commander.svg);
+		background-image: url(img/ikony/commander.svg);
 		background-position: 50% 35%;
 	}
 }
@@ -262,15 +262,15 @@ h1 { margin: 0; padding: 0; }
 			opacity: 0.5;
 		}
 		&.poison {
-			background-image: url(../img/ikony/poison.svg);
+			background-image: url(img/ikony/poison.svg);
 			width: 26px;
 		}
 		&.commander {
-			background-image: url(../img/ikony/commander.svg);
+			background-image: url(img/ikony/commander.svg);
 			width: 35px;
 		}
 		&.dice {
-      background-image: url(../img/ikony/dice.svg);
+      background-image: url(img/ikony/dice.svg);
       width: 35px;
 		}
 		&.new-game {
@@ -319,7 +319,7 @@ h1 { margin: 0; padding: 0; }
 			top: -76px;
 			left: -28px;
 			width: 418px; height: 812px;
-			background: url(../img/bgphone.png) no-repeat;
+			background: url(img/bgphone.png) no-repeat;
 			pointer-events: none;
 			z-index: 1; } }
 	.settings {
