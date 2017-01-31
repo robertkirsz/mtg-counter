@@ -6,4 +6,4 @@ export default (
   <Route path="/" component={App}>
     <Route path="*" component={App} />
   </Route>
-);
+)

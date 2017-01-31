@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import cn from 'classnames'
 
-const manaColors = ['white', 'blue', 'black', 'red', 'green'];
+const manaColors = ['white', 'blue', 'black', 'red', 'green']
 
 const ColorWheel = ({ hidden, onChooseColor }) => {
   return (
@@ -16,7 +16,7 @@ const ColorWheel = ({ hidden, onChooseColor }) => {
             className={manaColor}
             src={`img/ikony/${manaColor}_mana.png`}
             alt="Mana symbol"
-            onClick={() => { onChooseColor(manaColor); }}
+            onClick={() => { onChooseColor(manaColor) }}
           />
         ))
       }
