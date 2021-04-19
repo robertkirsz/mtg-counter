@@ -1,32 +1,50 @@
 {
   "name": "mtg-counter",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+  "author": {
+    "name": "Robert Kirsz",
+    "email": "robert.kirsz@gmail.com",
+    "url": "https://robertkirsz.com/"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --verbose",
+    "test:coverage": "react-scripts test --verbose --coverage",
+    "e2e": "cypress open",
+    "lint": "eslint . --ext .js,.ts,.tsx --fix",
+    "prettier": "prettier . --write"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "5.11.10",
+    "@testing-library/react": "11.2.6",
+    "@testing-library/user-event": "13.1.5",
+    "@types/jest": "26.0.22",
+    "@types/node": "14.14.41",
+    "@types/react": "17.0.3",
+    "@types/react-dom": "17.0.3",
+    "@types/styled-components": "5.1.9",
+    "cypress": "7.1.0",
+    "prettier": "2.2.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-scripts": "4.0.3",
+    "styled-components": "5.2.3",
+    "typescript": "4.2.4"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
     ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "semi": false,
+    "arrowParens": "avoid",
+    "printWidth": 100
   },
   "browserslist": {
     "production": [
