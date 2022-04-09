@@ -31,7 +31,7 @@
   "dependencies": {
     "classnames": "2.2.5",
     "lodash": "4.15.0",
-    "moment": "2.14.1",
+    "moment": "2.29.2",
     "object-assign": "4.1.0",
     "react": "15.3.1",
     "react-dom": "15.3.1",
